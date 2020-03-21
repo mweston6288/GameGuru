@@ -6,4 +6,4 @@ Video game tracker:
 * Maybe: search for sales
 * https://api.rawg.io/docs/
 * Twitch integration
-
+* User credentials
