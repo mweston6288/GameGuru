@@ -4,7 +4,9 @@
   "description": "Video game tracker: * Search games, including where they are * Make a wishlist of games * Maybe: search for sales * https://api.rawg.io/docs/ * Twitch integration * User credentials",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node server.js",
+    "lint": "eslint \"**/*.js\" --quiet",
+    "test": "npm run lint"
   },
   "repository": {
     "type": "git",
@@ -18,6 +20,7 @@
   },
   "homepage": "https://github.com/mweston6288/Project2#readme",
   "dependencies": {
+    "eslint": "^6.8.0",
     "express": "^4.17.1",
     "express-handlebars": "^3.1.0",
     "mysql": "^2.18.1"
