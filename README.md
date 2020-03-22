@@ -7,3 +7,10 @@ Video game tracker:
 * https://api.rawg.io/docs/
 * Twitch integration
 * User credentials
+
+Create tables
+* Users table
+* Games table
+* Creator table
+* Developer
+
