@@ -5,12 +5,12 @@ module.exports = function(sequelize, DataTypes){
     title: DataTypes.STRING,
     description: DataTypes.STRING,
     year: DataTypes.DATE,
-    score:,
-    image:,
-    ESRB:
+    score: DataTypes.INTEGER,
+    image:DataTypes.STRING,
+    ESRB:DataTypes.STRING
   });
   Games.associate = function(models){
-    Games.belongsToMany(models.Platforms, {through: "Games_Platform"})
+    Games.belongsToMany(models.Platforms, {through: "Games_Platform"});
     Games.belongsToMany(models.User, {through: "User_Wishlist"});
     Games.belongsToMany(models.User, {through: "User_Library"});
     Games.hasOne(Developer);
