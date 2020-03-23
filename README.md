@@ -13,4 +13,5 @@ Create tables
 * Games table
 * Creator table
 * Developer
+* Wishlist
 

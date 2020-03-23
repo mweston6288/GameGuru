@@ -26,7 +26,7 @@ module.exports = (app) => {
     }));
   });
 
-  app.delete("/api/wishlist", (req, res) => {
+  app.delete("/api/wishlist", function (req, res)  {
     db.Wishlist.destroy(req.body).then((dbWishlist) => {
       res.json(dbWishlist);
     });
