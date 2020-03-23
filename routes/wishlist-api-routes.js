@@ -10,10 +10,10 @@ module.exports = (app) => {
     });
   });
 
-  app.get("https://api.rawg.io/api/wishlist/:name", (req, res) => {
+  app.get("https://api.rawg.io/api/wishlist/:id", (req, res) => {
     db.Wishlist.findOne({
       where:  {
-        name: req.params.name
+        id: req.params.id
       },
     }).then((dbWishlist) => {
       res.json(dbWishlist);
