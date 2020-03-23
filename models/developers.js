@@ -3,8 +3,9 @@ module.exports = function(sequelize, DataTypes){
     DeveloperID: DataTypes.INTEGER,
     title: DataTypes.STRING
   });
-  Developer.associate = function(models){
+
+  /*  Developer.associate = function(models){
     Developer.hasMany(models.Games);
-  };
+  };*/
   return Developer;
 };
