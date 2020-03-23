@@ -7,14 +7,23 @@ module.exports = function(sequelize, DataTypes){
     year: DataTypes.DATE,
     score: DataTypes.INTEGER,
     image:DataTypes.STRING,
-    ESRB:DataTypes.STRING
+    ESRB:DataTypes.STRING,
+  },{
+    timestamps: false
   });
   Games.associate = function(models){
-    Games.belongsToMany(models.Platforms, {through: "Games_Platform"});
-    Games.belongsToMany(models.User, {through: "User_Wishlist"});
-    Games.belongsToMany(models.User, {through: "User_Library"});
-    Games.hasOne(Developer);
-    Games.hasOne(Publisher);
+    console.log(models);
+    //Games.belongsToMany(models.Platforms, {through: "Games_Platform"});
+    Games.belongsToMany(models.Users, {through: models.User_Wishlist});
+    Games.belongsToMany(models.Users, {through: "User_Library"});
+  /*  Games.belongsTo(models.Developer,{
+      foreignKey: {
+        allowNull: false
+      }});
+    Games.belongsTo(models.Publisher,{
+      foreignKey: {
+        allowNull: false
+      }});*/
   };
   return Games;
 };
