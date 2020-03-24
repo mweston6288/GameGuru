@@ -20,9 +20,12 @@
   },
   "homepage": "https://github.com/mweston6288/Project2#readme",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "eslint": "^6.8.0",
     "express": "^4.17.1",
     "express-handlebars": "^3.1.0",
-    "mysql": "^2.18.1"
+    "mysql": "^2.18.1",
+    "passport": "^0.4.1",
+    "passport-local": "^1.0.0"
   }
 }
