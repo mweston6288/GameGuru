@@ -1,7 +1,6 @@
 module.exports = function(sequelize, DataTypes){
   const Publisher = sequelize.define("Publisher",{
-    DeveloperID: DataTypes.INTEGER,
-    title: DataTypes.STRING
+    PublisherID: DataTypes.INTEGER,
   });
 
   Publisher.associate = function(models){
