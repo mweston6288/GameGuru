@@ -1,7 +1,7 @@
 module.exports = function(sequelize, DataTypes){
   // pass in id, Name, description, Released, Metacritic, background_image, esrb_rating.name
   const Games = sequelize.define("Games",{
-    gameID: DataTypes.INTEGER,
+        gameID: DataTypes.INTEGER,
     platformsID: DataTypes.INTEGER,
     storeID: DataTypes.INTEGER,
     developergameID: DataTypes.INTEGER,
@@ -27,3 +27,5 @@ module.exports = function(sequelize, DataTypes){
   };
   return Games;
 };
+    	
+
