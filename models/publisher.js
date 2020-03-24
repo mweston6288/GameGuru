@@ -4,8 +4,8 @@ module.exports = function(sequelize, DataTypes){
     title: DataTypes.STRING
   });
 
-  /*Publisher.associate = function(models){
+  Publisher.associate = function(models){
     Publisher.hasMany(models.Games);
-  };*/
+  };
   return Publisher;
 };
