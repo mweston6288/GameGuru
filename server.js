@@ -23,7 +23,7 @@ require("./routes/wishlist-api-routes") (app);
 
 
 db.sequelize.sync({ force: true }).then(() => {
-  app.listen(PORT, () => {
-    console.log("App listening on Port " + PORT);
-  });
+    app.listen(PORT, () => {
+        console.log("App listening on Port " + PORT);
+    });
 });
