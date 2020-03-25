@@ -6,5 +6,5 @@ module.exports = function(sequelize, DataTypes){
         Developer.associate = function(models){
         Developer.hasMany(models.Games);
     };
-    return Developer;
+        return Developer;
 };
