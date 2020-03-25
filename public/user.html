@@ -10,6 +10,9 @@
 </head>
 <body>
     <h2>Welcome <span class = "username"></span></h2>
+    <button id="wishlist">Wishlist</button>
+    <button id="library">Library</button>
+    <button id="watchlist">Watchlist</button>
     <form class = "game-search">
         <div class="form-group">
             <label for="user-input">Search:</label>
@@ -24,9 +27,23 @@
         </div>
         <button type = "submit" class="btn btn-default">Search</button>
     </form>
-    <button id = "wishlist">Wishlist</button>
-    <button id = "library">Library</button>
-    <button id = "watchlist">Watchlist</button>
+    <div id = "searchResults">
+        <p>Search Results</p>
+        <div class = "container">
+            <div class = "row">
+                <p class = "name">Game 1</p>
+                <p>Something</p>
+                <p>Something</p>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <p class="name">Game 1</p>
+                <p>Something</p>
+                <p>Something</p>
+            </div>
+        </div>
+    </div>
     <script src = "assets/js/user.js"></script>
 </body>
 </html>

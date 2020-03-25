@@ -10,6 +10,46 @@ $(document).ready(function () {
         $(".username").text(data.username);
         userID = data.id;
     });
+    function displayResults(searchResults){
+        const body = $("#searchResults");
+        console.log(body);
+        searchResults.forEach(function(element){
+            console.log(element);
+            const divContainer = $("<div>");
+            const divRow = $("<div>");
+            const pName = $("<p>");
+            const pDeveloper = $("<div>");
+            const pGenre = $("<p>");
+            const pDescription = $("<p>");
+
+            divContainer.attr("class", "container");
+            divRow.attr("class", "row");
+            pName.attr("id", "name");
+            pDeveloper.attr("id", "developer");
+            pGenre.attr("id", "genre");
+            pDescription.attr("id", "description");
+
+            pName.text(element.name);
+            pDescription.text(element.description);
+            element.developers.forEach(function(developers){
+                const dev = $("<p>");
+                dev.text(developers.name);
+                pDeveloper.append(dev);
+            });
+            element.genres.forEach(function (genres) {
+                const genre = $("<p>");
+                genre.text(genres.name);
+                pGenre.append(genre);
+            });
+            body.append(divContainer);
+            divContainer.append(divRow);
+            divRow.append(pName);
+            divRow.append(pDeveloper);
+            divRow.append(pGenre);
+            divRow.append(pDescription);
+
+        });
+    }
     function getName(searchTerm){
         let queryURL = "https://api.rawg.io/api/games/"+searchTerm.replace(/ /g, "-");
         $.ajax({
@@ -26,11 +66,12 @@ $(document).ready(function () {
                     searchResults.push(element);
                 });
                 console.log(searchResults);
+                displayResults(searchResults);
             });
         });
     }
     function getDeveloper(searchTerm){
-        const queryURL = "https://api.rawg.io/api/games/developers" + searchTerm.replace(/ /g, "-");
+        const queryURL = "https://api.rawg.io/api/games/" + searchTerm.replace(/ /g, "-");
         console.log(queryURL);
         $.ajax({
             url: queryURL,
@@ -62,6 +103,5 @@ $(document).ready(function () {
         }
         searchAPI(searchData.searchTerm, searchData.searchType);
         searchTerm.val("");
-        searchType.val("");
     });
 });
