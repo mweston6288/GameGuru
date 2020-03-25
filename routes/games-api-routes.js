@@ -1,4 +1,5 @@
 const db = require("../models");
+const axios = require("axios");
 
 module.exports = (app) => {
     app.get("https://api.rawg.io/api/games", (req, res) => {
@@ -19,9 +20,7 @@ module.exports = (app) => {
     });
 
     app.get("https://api.rawg.io/api/games/:name", (req, res) => {
-        console.log("Here");
-    
-    let devQuery = {};
+        let devQuery = {};
         if (req.devQuery.developer_id) {
             devQuery.DeveloperId = req.devQuery.developer_id;
         }

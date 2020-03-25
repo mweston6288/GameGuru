@@ -2,7 +2,7 @@ $(document).ready(function () {
     const search = $("form.game-search");
     const searchTerm = $("input#user-input");
     const searchType = $("select#search-type");
-   // let userID;
+    // let userID;
     // This file just does a GET request to figure out which user is logged in
     // and updates the HTML on the page
     $.get("/api/user_data").then(function (data) {
