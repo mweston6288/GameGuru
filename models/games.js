@@ -14,17 +14,17 @@ module.exports = function(sequelize, DataTypes){
     Games.associate = function(models){
         console.log(models);
         //Games.belongsToMany(models.Platforms, {through: "Games_Platform"});
-            Games.belongsToMany(models.Users, {through: "User_Wishlist"});
-            Games.belongsToMany(models.Users, {through: "User_Library"});
-            Games.belongsTo(models.Developer,{
+        Games.belongsToMany(models.Users, {through: "User_Wishlist"});
+        Games.belongsToMany(models.Users, {through: "User_Library"});
+        Games.belongsTo(models.Developer,{
             foreignKey: {
                 allowNull: false
             }});
-            Games.belongsTo(models.Publisher,{
+        Games.belongsTo(models.Publisher,{
             foreignKey: {
                 allowNull: false
             }});
-};
+    };
     return Games;
 };
     	
