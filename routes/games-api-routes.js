@@ -1,5 +1,4 @@
 const db = require("../models");
-const axios = require("axios");
 
 module.exports = (app) => {
     app.get("https://api.rawg.io/api/games", (req, res) => {
