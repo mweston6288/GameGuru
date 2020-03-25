@@ -19,7 +19,9 @@ module.exports = (app) => {
     });
 
     app.get("https://api.rawg.io/api/games/:name", (req, res) => {
-        let devQuery = {};
+        console.log("Here");
+    
+    let devQuery = {};
         if (req.devQuery.developer_id) {
             devQuery.DeveloperId = req.devQuery.developer_id;
         }
