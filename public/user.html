@@ -1,3 +1,5 @@
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Game Guru</title>
@@ -7,21 +9,24 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 </head>
 <body>
-    <h2>Welcome</h2>
+    <h2>Welcome <span class = "username"></span></h2>
     <form class = "game-search">
         <div class="form-group">
             <label for="user-input">Search:</label>
             <input type="text" class="form-control" id="user-input" placeholder="Game">
         </div>
-        <select id = "search-type" name = "search by">
-            <option value = "name">Name</option>
-            <option value="developer">Developer</option>
-            <option value="Genre">Genre</option>
-        </select>
+        <div class="form-group">
+            <select id = "search-type" name = "search by">
+                <option value = "name">Name</option>
+                <option value="developer">Developer</option>
+                <option value="Genre">Genre</option>
+            </select>
+        </div>
         <button type = "submit" class="btn btn-default">Search</button>
     </form>
     <button id = "wishlist">Wishlist</button>
     <button id = "library">Library</button>
     <button id = "watchlist">Watchlist</button>
-
+    <script src = "assets/js/user.js"></script>
 </body>
+</html>
