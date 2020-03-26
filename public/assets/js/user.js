@@ -8,14 +8,6 @@ $(document).ready( () => {
         userID = data.id;
     });
 
-    function makeNewSearchEvent() {
-        const newSearch = $("a.newSeach");
-
-        newSearch.click((event) => {
-            console.log(event);
-            searchAPI(event.toElement.text, "name")
-        })
-    }
     const getName = (searchTerm) => {
         let queryURL = "https://api.rawg.io/api/games/"+searchTerm.replace(/ /g, "-");
         $.get(queryURL)
@@ -41,6 +33,15 @@ $(document).ready( () => {
         default: return;
         }
     };
+
+    function makeNewSearchEvent() {
+        const newSearch = $("a.newSeach");
+
+        newSearch.click((event) => {
+            console.log(event);
+            searchAPI(event.toElement.text, "name");
+        });
+    }
     search.on("submit", (event) => {
         event.preventDefault();
         console.log(event);
