@@ -34,14 +34,14 @@ $(document).ready( () => {
         }
     };
 
-    function makeNewSearchEvent() {
+    const makeNewSearchEvent =() => {
         const newSearch = $("a.newSeach");
 
         newSearch.click((event) => {
             console.log(event);
-            searchAPI(event.toElement.text, "name");
+            searchAPI(event.toElement.id, "name");
         });
-    }
+    };
     search.on("submit", (event) => {
         event.preventDefault();
         console.log(event);
