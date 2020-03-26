@@ -18,7 +18,7 @@ module.exports = (app) => {
     app.get("/user", isAuthenticated, function (req, res) {
         res.sendFile(path.join(__dirname, "../public/user.html"));
     });
- 
+
     app.get("/user/wishlist", isAuthenticated, function (req, res) {
         res.sendFile(path.join(__dirname, "../public/wishlist.html"));
     });
