@@ -8,8 +8,6 @@ $(document).ready( () => {
         userID = data.id;
     });
 
-    // This is where I'm calling the API
-
     const getName = (searchTerm) => {
         let queryURL = "https://api.rawg.io/api/games/"+searchTerm.replace(/ /g, "-");
         $.get(queryURL)
@@ -20,6 +18,7 @@ $(document).ready( () => {
                         $("#searchResults").empty();
                         userMaker.createMainResult(searchResponse);
                         userMaker.createSubResult(simResponse);
+                        makeNewSearchEvent();
                     });
             });
     };
@@ -34,9 +33,19 @@ $(document).ready( () => {
         default: return;
         }
     };
+
+    const makeNewSearchEvent =() => {
+        const newSearch = $("a.newSeach");
+
+        newSearch.click((event) => {
+            console.log(event);
+            searchAPI(event.toElement.id, "name");
+        });
+    };
     search.on("submit", (event) => {
         event.preventDefault();
-        searchResults = [];
+        console.log(event);
+
         const searchData = {
             searchTerm: searchTerm.val().trim(),
             searchType: searchType.val().trim()
