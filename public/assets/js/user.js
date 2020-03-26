@@ -7,6 +7,7 @@ $(document).ready( () => {
         $(".username").text(data.username);
         userID = data.id;
     });
+<<<<<<< HEAD
     const createSubResult = (data) => {
         const body = $("#searchResults");
         data.results.forEach( (element) => {
@@ -81,6 +82,11 @@ $(document).ready( () => {
     };
 
     // This is where I'm calling the API
+=======
+
+    // This is where I'm calling the API
+
+>>>>>>> 9926b59e6f6f32de34668222833051252066b01e
     const getName = (searchTerm) => {
         let queryURL = "https://api.rawg.io/api/games/"+searchTerm.replace(/ /g, "-");
         $.get(queryURL)
@@ -88,7 +94,13 @@ $(document).ready( () => {
                 queryURL = "https://api.rawg.io/api/games/" + searchResponse.id + "/suggested";
                 $.get(queryURL)
                     .then((simResponse) => {
+<<<<<<< HEAD
                         displayResults(searchResponse, simResponse);
+=======
+                        $("#searchResults").empty();
+                        userMaker.createMainResult(searchResponse);
+                        userMaker.createSubResult(simResponse);
+>>>>>>> 9926b59e6f6f32de34668222833051252066b01e
                     });
             });
     };
