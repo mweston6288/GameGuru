@@ -49,7 +49,6 @@ const userMaker = {
 
     createSubResult: function(data){
         const body = $("#searchResults");
-        console.log(data);
         data.results.forEach(function (element) {
             const divContainer = $("<div>");
             const divRow = $("<div>");
@@ -62,6 +61,7 @@ const userMaker = {
             pName.attr("class", "suggestedGame");
             aLink.attr("id", element.id);
             aLink.attr("href", "#");
+            aLink.attr("class", "newSeach");
 
             aLink.text(element.name);
             pName.append(aLink);
