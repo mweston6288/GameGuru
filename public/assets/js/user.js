@@ -10,16 +10,25 @@ $(document).ready( () => {
 
     const getName = (searchTerm) => {
         let queryURL = "https://api.rawg.io/api/games/"+searchTerm.replace(/ /g, "-");
+        $("#searchResults").empty();
         $.get(queryURL)
             .then((searchResponse) => {
                 queryURL = "https://api.rawg.io/api/games/" + searchResponse.id + "/suggested";
                 $.get(queryURL)
                     .then((simResponse) => {
-                        $("#searchResults").empty();
                         userMaker.createMainResult(searchResponse);
                         userMaker.createSubResult(simResponse);
                         makeNewSearchEvent();
                     });
+            });
+    };
+    const getDeveloper = (searchTerm) =>{
+        let queryURL = "https://api.rawg.io/api/games?developers=" + searchTerm;
+        $("#searchResults").empty();
+        $.get(queryURL)
+            .then((searchResponse) => {
+                userMaker.createDevResult(searchResponse);
+                makeNewSearchEvent();
             });
     };
     const searchAPI = (searchTerm, searchType) => {
@@ -27,8 +36,8 @@ $(document).ready( () => {
         case "name":
             getName(searchTerm);
             break;
-        case "developers":
-            //getDeveloper(searchTerm);
+        case "developer":
+            getDeveloper(searchTerm);
             break;
         default: return;
         }
@@ -36,15 +45,16 @@ $(document).ready( () => {
 
     const makeNewSearchEvent =() => {
         const newSearch = $("a.newSeach");
-
+        const devButton = $("button.developer-button");
         newSearch.click((event) => {
-            console.log(event);
             searchAPI(event.toElement.id, "name");
+        });
+        devButton.click((event)=>{
+            searchAPI(event.toElement.id,"developer");
         });
     };
     search.on("submit", (event) => {
         event.preventDefault();
-        console.log(event);
 
         const searchData = {
             searchTerm: searchTerm.val().trim(),
