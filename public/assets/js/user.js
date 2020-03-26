@@ -1,15 +1,15 @@
-$(document).ready(function () {
+$(document).ready( () => {
     const search = $("form.game-search");
     const searchTerm = $("input#user-input");
     const searchType = $("select#search-type");
 
-    $.get("/api/user_data").then(function (data) {
+    $.get("/api/user_data").then( (data) => {
         $(".username").text(data.username);
         userID = data.id;
     });
-    function createSubResult(data){
+    const createSubResult = (data) => {
         const body = $("#searchResults");
-        data.results.forEach(function (element) {
+        data.results.forEach( (element) => {
             const divContainer = $("<div>");
             const divRow = $("<div>");
             const pName = $("<p>");
@@ -23,9 +23,9 @@ $(document).ready(function () {
             divContainer.append(divRow);
             divRow.append(pName);
         });
-    }
+    };
 
-    function createMainResult(data){
+    const createMainResult = (data) => {
         console.log(data);
         const body = $("#searchResults");
         const divContainer = $("<div>");
@@ -50,12 +50,12 @@ $(document).ready(function () {
 
         pName.text(data.name);
         pDescription.text(data.description_raw);
-        data.developers.forEach(function (developers) {
+        data.developers.forEach((developers) => {
             const dev = $("<p>");
             dev.text(developers.name);
             pDeveloper.append(dev);
         });
-        data.genres.forEach(function (genres) {
+        data.genres.forEach((genres) => {
             const genre = $("<p>");
             genre.text(genres.name);
             pGenre.append(genre);
@@ -73,41 +73,37 @@ $(document).ready(function () {
         divRow.append(wishlistButton);
         divRow.append(libraryButton);
 
-    }
-    function displayResults(mainResult, suggestedResult) {
+    };
+    const displayResults = (mainResult, suggestedResult) => {
         $("#searchResults").empty();
         createMainResult(mainResult);
         createSubResult(suggestedResult);
-    }
+    };
 
     // This is where I'm calling the API
-    function getName(searchTerm) {
-        let queryURL = "https://api.rawg.io/api/games/" + searchTerm.replace(/ /g, "-");
-        $.ajax({
-            url: queryURL,
-            method: "GET"
-        }).then(function (searchResponse) {
-            queryURL = "https://api.rawg.io/api/games/" + searchResponse.id + "/suggested";
-            $.ajax({
-                url: queryURL,
-                method: "GET"
-            }).then(function (simResponse) {
-                displayResults(searchResponse, simResponse);
+    const getName = (searchTerm) => {
+        let queryURL = "https://api.rawg.io/api/games/"+searchTerm.replace(/ /g, "-");
+        $.get(queryURL)
+            .then((searchResponse) => {
+                queryURL = "https://api.rawg.io/api/games/" + searchResponse.id + "/suggested";
+                $.get(queryURL)
+                    .then((simResponse) => {
+                        displayResults(searchResponse, simResponse);
+                    });
             });
-        });
-    }
-    function searchAPI(searchTerm, searchType) {
+    };
+    const searchAPI = (searchTerm, searchType) => {
         switch (searchType) {
         case "name":
             getName(searchTerm);
             break;
-        case "developer":
+        case "developers":
             //getDeveloper(searchTerm);
             break;
         default: return;
         }
-    }
-    search.on("submit", function (event) {
+    };
+    search.on("submit", (event) => {
         event.preventDefault();
         searchResults = [];
         const searchData = {
