@@ -49,16 +49,22 @@ const userMaker = {
 
     createSubResult: function(data){
         const body = $("#searchResults");
+        console.log(data);
         data.results.forEach(function (element) {
             const divContainer = $("<div>");
             const divRow = $("<div>");
             const pName = $("<p>");
+            const aLink = $("<a>");
 
             divContainer.attr("class", "container");
             divRow.attr("class", "row");
             pName.attr("id", "name");
+            pName.attr("class", "suggestedGame");
+            aLink.attr("id", element.id);
+            aLink.attr("href", "#");
 
-            pName.text(element.name);
+            aLink.text(element.name);
+            pName.append(aLink);
             body.append(divContainer);
             divContainer.append(divRow);
             divRow.append(pName);
