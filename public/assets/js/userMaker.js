@@ -17,8 +17,11 @@ const userMaker = {
         pDeveloper.attr("id", "developer");
         pGenre.attr("id", "genre");
         pDescription.attr("id", "description");
-        wishlistButton.attr("id", "wishlist-add");
-        libraryButton.attr("id", "library-add");
+        wishlistButton.attr("id", data.id);
+        wishlistButton.attr("class", "wishlist-add");
+        libraryButton.attr("id", data.id);
+        libraryButton.attr("class", "library-add");
+
         img.attr("src", data.background_image);
 
         pName.text(data.name);
