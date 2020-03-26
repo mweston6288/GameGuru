@@ -23,7 +23,7 @@ $(document).ready( () => {
             divContainer.append(divRow);
             divRow.append(pName);
         });
-    }
+    };
 
     const createMainResult = (data) => {
         console.log(data);
@@ -73,26 +73,26 @@ $(document).ready( () => {
         divRow.append(wishlistButton);
         divRow.append(libraryButton);
 
-    }
+    };
     const displayResults = (mainResult, suggestedResult) => {
         $("#searchResults").empty();
         createMainResult(mainResult);
         createSubResult(suggestedResult);
-    }
+    };
 
     // This is where I'm calling the API
     const getName = (searchTerm) => {
         let queryURL = "https://api.rawg.io/api/games/"+searchTerm.replace(/ /g, "-");
         $.get(queryURL)
-        .then((searchResponse) => {
-            queryURL = "https://api.rawg.io/api/games/" + searchResponse.id + "/suggested";
-            $.get(queryURL)
-            .then((simResponse) => {
-                displayResults(searchResponse, simResponse);
-            })
+            .then((searchResponse) => {
+                queryURL = "https://api.rawg.io/api/games/" + searchResponse.id + "/suggested";
+                $.get(queryURL)
+                    .then((simResponse) => {
+                        displayResults(searchResponse, simResponse);
+                    });
         })
-    }
-   const searchAPI = (searchTerm, searchType) => {
+    };
+    const searchAPI = (searchTerm, searchType) => {
         switch (searchType) {
         case "name":
             getName(searchTerm);
@@ -102,7 +102,7 @@ $(document).ready( () => {
             break;
         default: return;
         }
-    }
+    };
     search.on("submit", (event) => {
         event.preventDefault();
         searchResults = [];
