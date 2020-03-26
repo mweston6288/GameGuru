@@ -90,7 +90,7 @@ $(document).ready( () => {
                     .then((simResponse) => {
                         displayResults(searchResponse, simResponse);
                     });
-        })
+            });
     };
     const searchAPI = (searchTerm, searchType) => {
         switch (searchType) {
