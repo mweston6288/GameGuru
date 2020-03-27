@@ -2,7 +2,7 @@ const db = require("../models");
 
 module.exports = (app) => {
     app.get("https://api.rawg.io/api/games", (req, res) => {
-        db.Games.findAll({ 
+        db.Games.findAll({
         }).then((dbGames) => {
             res.json(dbGames);
         });
@@ -11,7 +11,7 @@ module.exports = (app) => {
         db.Games.findOne({
             where:  {
                 name: req.params.name
-            },          
+            },
         }).then((dbGames) => {
             res.json(dbGames);
         });
@@ -28,6 +28,6 @@ module.exports = (app) => {
             tagID: req.body.tagID,
             publishergameID: req.body.publishergameID,
             userID: req.body.userID,
-        })
-    })
+        });
+    });
 };
