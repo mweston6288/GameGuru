@@ -45,6 +45,57 @@ $(document).ready( () => {
     };
 
     const addToWishlist = (gameID)=>{
+        const Url = "https://api.rawg.io/api/games/"+ gameID;
+        $.get(Url)
+        .then((req) => {
+            event.preventDefault();
+            console.log(req.genres)
+            const pArray = req.platforms;
+            const pArrayId = [];
+            pArray.forEach((element) => {
+                pArrayId.push((element.platform.id))
+            });
+            const sArray = req.stores;
+            const sArrayId = [];
+            sArray.forEach((element) => {
+                sArrayId.push(element.id)
+            });
+            const dArray = req.developers;
+            const dArrayId = [];
+            dArray.forEach((element) => {
+                dArrayId.push(element.id)
+            })
+            const gArray = req.genres;
+            const gArrayId = [];
+            gArray.forEach((element) => {
+                gArrayId.push(element.id)
+            });
+            const tArray = req.tags;
+            const tArrayId = [];
+            tArray.forEach((element) => {
+                tArrayId.push(element.id)
+            })
+            const pubArray = req.publishers;
+            const pubArrayId = [];
+            pubArray.forEach((element) => {
+                pubArrayId.push(element.id)
+            })
+            const newGame = {
+                gameID: req.id,
+                platformID: pArrayId,
+                storeID: sArrayId,
+                developergameID: dArrayId,
+                genresID: gArrayId,
+                tagID: tArrayId,
+                publishergameID: pubArrayId,
+                userID: userID,
+            };
+            console.log(newGame);
+            $.post("/api/user/game", newGame)
+                .then((data) => {
+                    console.log(data);
+                });
+        });
         console.log(gameID);
     };
     const makeNewSearchEvent =() => {
