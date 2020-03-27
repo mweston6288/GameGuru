@@ -30,6 +30,6 @@ module.exports = (app) => {
             userID: req.body.userID,
         }).then(function(dbGames) {
             res.json(dbGames);
-        })
+        });
     });
 };
