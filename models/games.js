@@ -7,7 +7,8 @@ module.exports = function(sequelize, DataTypes){
         developergameID: DataTypes.INTEGER,
         genresID: DataTypes.INTEGER,
         tagID:DataTypes.INTEGER,
-        publishergameID:DataTypes.STRING,
+        publishergameID:DataTypes.INTEGER,
+        userID: DataTypes.INTEGER,
     },{
         timestamps: false
     });
