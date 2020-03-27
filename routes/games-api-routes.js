@@ -28,6 +28,8 @@ module.exports = (app) => {
             tagID: req.body.tagID,
             publishergameID: req.body.publishergameID,
             userID: req.body.userID,
-        });
+        }).then(function(dbGames) {
+            res.json(dbGames);
+        })
     });
 };

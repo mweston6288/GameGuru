@@ -68,7 +68,7 @@ $(document).ready( () => {
                 const gArray = req.genres;
                 const gArrayId = [];
                 gArray.forEach((element) => {
-                gArrayId.push(element.id);
+                    gArrayId.push(element.id);
                 });
                 const tArray = req.tags;
                 const tArrayId = [];
