@@ -17,8 +17,8 @@ $("#wishlist-add").on("click", (event) => {
             };
             console.log(newGame);
             $.post("/api/user/game", newGame)
-            .then((data) => {
+                .then((data) => {
                     console.log(data);
                 });
-    }); 
+        });
 });
