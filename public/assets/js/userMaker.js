@@ -1,56 +1,70 @@
 const userMaker = {
     createMainResult: function(data){
         const body = $("#searchResults");
+        const searchHeader = $("<h3>");
+        searchHeader.attr("class", "searchHeader");
+        body.append(searchHeader);
+
         const divContainer = $("<div>");
         const divRow = $("<div>");
-        const pName = $("<p>");
+        const col1 = $("<div>");
+        const imgContainer = $("<div>");
+        const img = $("<img>");
         const pDeveloper = $("<div>");
         const pGenre = $("<p>");
+
+        const col2 = $("<div>");
+        const row2 = $("<div>");
+        const pName = $("<h3>");
         const pDescription = $("<p>");
         const wishlistButton = $("<button>");
         const libraryButton = $("<button>");
-        const img = $("<img>");
 
         divContainer.attr("class", "container");
         divRow.attr("class", "row");
+        col1.attr("class", "col-sm-4");
+        imgContainer.attr("class", "container-fluid");
+        img.attr({src: data.background_image, class: "search-img"});
+        pDeveloper.attr("class", "row developer");
+        pGenre.attr("class", "row genre");
+        col2.attr("class", "col-sm-8");
+        row2.attr("class", "row");
         pName.attr("id", "name");
-        pDeveloper.attr("id", "developer");
-        pGenre.attr("id", "genre");
         pDescription.attr("id", "description");
-        wishlistButton.attr("id", data.id);
-        wishlistButton.attr("class", "wishlist-add");
-        libraryButton.attr("id", data.id);
-        libraryButton.attr("class", "library-add");
-
-        img.attr("src", data.background_image);
+        wishlistButton.attr({id: data.id, class:"wishlist-add"});
+        libraryButton.attr({id: data.id, class:"library-add"});
 
         pName.text(data.name);
         pDescription.text(data.description_raw);
+        wishlistButton.text("Add to Wishlist");
+        libraryButton.text("Add to library");
+
         data.developers.forEach(function (developers) {
             const dev = $("<p>");
-            const devButton = $("<button>");
-            dev.text(developers.name);
-            devButton.attr("id", developers.id);
-            devButton.attr("class", "developer-button");
-            devButton.text("Other games by this developer");
+            const devLink = $("<a>");
+            devLink.text(developers.name);
+            devLink.attr({id: developers.id, href: "#"});
+            dev.append(devLink);
             pDeveloper.append(dev);
-            pDeveloper.append(devButton);
         });
         data.genres.forEach(function (genres) {
             const genre = $("<p>");
             genre.text(genres.name);
             pGenre.append(genre);
         });
-        wishlistButton.text("Add to Wishlist");
-        libraryButton.text("Add to library");
+
 
         body.append(divContainer);
         divContainer.append(divRow);
-        divRow.append(img);
-        divRow.append(pName);
-        divRow.append(pDeveloper);
-        divRow.append(pGenre);
-        divRow.append(pDescription);
+        divRow.append(col1);
+        col1.append(imgContainer);
+        imgContainer.append(img);
+        col1.append(pDeveloper);
+        col1.append(pGenre);
+        divRow.append(col2);
+        col2.append(row2);
+        row2.append(pName);
+        row2.append(pDescription);
         divRow.append(wishlistButton);
         divRow.append(libraryButton);
     },
