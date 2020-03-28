@@ -30,7 +30,6 @@ module.exports = function (app) {
 
     // Route for logging user out
     app.get("/logout", function (req, res) {
-        console.log("Here");
         req.logout();
         res.redirect("/");
     });
@@ -48,5 +47,17 @@ module.exports = function (app) {
                 id: req.user.id
             });
         }
+    });
+    app.put("/api/user",(req,res)=>{
+        console.log(req.body);
+        db.Users.update(
+            {username: req.body.name},
+            {
+                where: {
+                    id: req.body.id
+                }
+            }).then(function (user) {
+            res.json(user);
+        });
     });
 };

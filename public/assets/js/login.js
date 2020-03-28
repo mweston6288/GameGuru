@@ -8,7 +8,7 @@ $(document).ready(function() {
             username: username,
             password: password
         }).then(function () {
-            window.location.replace("/user");
+            window.location.assign("/user");
         }).catch(function (err) {
             console.log(err);
         });

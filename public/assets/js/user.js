@@ -2,6 +2,7 @@ $(document).ready( () => {
     const search = $("form.game-search");
     const searchTerm = $("input#user-input");
     const searchType = $("select#search-type");
+    const options = $("button#options");
     let userID;
 
     $.get("/api/user_data").then( (data) => {
@@ -120,5 +121,10 @@ $(document).ready( () => {
         }
         searchAPI(searchData.searchTerm, searchData.searchType);
         searchTerm.val("");
+    });
+    options.click((event)=>{
+        event.preventDefault();
+        console.log(event);
+        window.location.assign("/options");
     });
 });
