@@ -1,7 +1,7 @@
 const db = require("../models");
 
 module.exports = (app) => {
-    app.get("/api/user/wishlist", (req, res) => {
+    app.get("/api/wishlist", (req, res) => {
         db.Wishlist.findAll({
             where: devQuery, pubQuery,
             include: [db.Developer] [db.Publisher]
@@ -10,7 +10,7 @@ module.exports = (app) => {
         });
     });
 
-    app.get("/api/user/wishlist", (req, res) => {
+    app.get("/api/wishlist", (req, res) => {
         db.Wishlist.findOne({
             where:  {
                 id: req.params.id
@@ -20,13 +20,13 @@ module.exports = (app) => {
         });
     });
 
-    app.post("/api/user/wishlist", (req, res) => {
+    app.post("/api/wishlist", (req, res) => {
         db.Wishlist.create(req.body).then(((dbWishlist) => {
             res.json(dbWishlist);
         }));
     });
 
-    app.delete("/api/user/wishlist", (req, res) => {
+    app.delete("/api/wishlist", (req, res) => {
         db.Wishlist.destroy(req.body).then((dbWishlist) => {
             res.json(dbWishlist);
         });
