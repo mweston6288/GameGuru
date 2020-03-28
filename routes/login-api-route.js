@@ -57,7 +57,7 @@ module.exports = function (app) {
                     id: req.body.id
                 }
             }).then(function (user) {
-                res.json(user);
-            });
+            res.json(user);
+        });
     });
 };
