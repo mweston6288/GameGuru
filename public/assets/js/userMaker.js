@@ -143,6 +143,5 @@ const userMaker = {
         row2.append(pName);
         row2.append(watchlistButton);
     },
-
 };
 userMaker;

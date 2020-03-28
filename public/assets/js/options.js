@@ -12,7 +12,7 @@ $(document).ready(() => {
     $(".changeUsername").on("submit", (event)=>{
         event.preventDefault();
         const newUsername = {
-            name: $("#user-input").val().trim()
+            name: $("#username").val().trim()
         };
         newUsername.id = userID;
         $.ajax({
