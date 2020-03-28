@@ -25,12 +25,18 @@ $(document).ready( () => {
             });
     };
     const getDeveloper = (searchTerm) =>{
-        let queryURL = "https://api.rawg.io/api/games?developers=" + searchTerm;
+        let queryURL = "https://api.rawg.io/api/developers/" + searchTerm;
         $("#searchResults").empty();
         $.get(queryURL)
             .then((searchResponse) => {
-                userMaker.createDevResult(searchResponse);
-                makeNewSearchEvent();
+                queryURL = "https://api.rawg.io/api/games?developers=" + searchTerm;
+                $.get(queryURL)
+                    .then((gameSearch)=>{
+                        userMaker.createDevResult(searchResponse);
+                        userMaker.createSubResult(gameSearch);
+
+                        makeNewSearchEvent();
+                    });
             });
     };
     const searchAPI = (searchTerm, searchType) => {
@@ -50,7 +56,6 @@ $(document).ready( () => {
         $.get(Url)
             .then((req) => {
                 event.preventDefault();
-                console.log(req.genres);
                 /*const pArray = req.platforms;
                 const pArrayId = [];
                 pArray.forEach((element) => {
@@ -85,13 +90,8 @@ $(document).ready( () => {
                     //publishergameID: pubArrayId,
                     userID: userID,
                 };
-                console.log(newGame);
-                $.post("/api/user/game", newGame)
-                    .then((data) => {
-                        console.log(data);
-                    });
+                $.post("/api/user/game", newGame);
             });
-        console.log(gameID);
     };
     const makeNewSearchEvent =() => {
         const newSearch = $("a.newSeach");
@@ -104,7 +104,6 @@ $(document).ready( () => {
             searchAPI(event.toElement.id,"developer");
         });
         wishlistButton.click((event)=>{
-            console.log(event);
             addToWishlist(event.toElement.id);
         });
 
@@ -124,7 +123,6 @@ $(document).ready( () => {
     });
     options.click((event)=>{
         event.preventDefault();
-        console.log(event);
         window.location.assign("/options");
     });
 });

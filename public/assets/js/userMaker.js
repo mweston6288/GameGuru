@@ -105,26 +105,44 @@ const userMaker = {
     },
     createDevResult: function(data){
         const body = $("#searchResults");
-        data.results.forEach(function (element) {
-            const divContainer = $("<div>");
-            const divRow = $("<div>");
-            const pName = $("<p>");
-            const aLink = $("<a>");
+        const searchHeader = $("<h3>");
+        searchHeader.attr("class", "searchHeader");
+        body.append(searchHeader);
 
-            divContainer.attr("class", "container");
-            divRow.attr("class", "row");
-            pName.attr("id", "name");
-            pName.attr("class", "suggestedGame");
-            aLink.attr("id", element.id);
-            aLink.attr("href", "#");
-            aLink.attr("class", "newSeach");
+        const divContainer = $("<div>");
+        const divRow = $("<div>");
+        const col1 = $("<div>");
+        const imgContainer = $("<div>");
+        const img = $("<img>");
 
-            aLink.text(element.name);
-            pName.append(aLink);
-            body.append(divContainer);
-            divContainer.append(divRow);
-            divRow.append(pName);
-        });
-    }
+        const col2 = $("<div>");
+        const row2 = $("<div>");
+        const pName = $("<h3>");
+        const watchlistButton = $("<button>");
+
+        divContainer.attr("class", "container");
+        divRow.attr("class", "row");
+        col1.attr("class", "col-sm-8");
+        imgContainer.attr("class", "container-fluid");
+        img.attr({ src: data.image_background, class: "search-img" });
+        col2.attr("class", "col-sm-4");
+        row2.attr("class", "row");
+        pName.attr("id", "name");
+        watchlistButton.attr({ id: data.id, class: "watchlist-add" });
+
+        pName.text(data.name);
+        watchlistButton.text("Add to Watchlist");
+
+        body.append(divContainer);
+        divContainer.append(divRow);
+        divRow.append(col1);
+        col1.append(imgContainer);
+        imgContainer.append(img);
+        divRow.append(col2);
+        col2.append(row2);
+        row2.append(pName);
+        row2.append(watchlistButton);
+    },
+
 };
 userMaker;
