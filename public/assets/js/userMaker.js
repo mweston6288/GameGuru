@@ -25,7 +25,7 @@ const userMaker = {
         col1.attr("class", "col-sm-4");
         imgContainer.attr("class", "container-fluid");
         img.attr({src: data.background_image, class: "search-img"});
-        pDeveloper.attr("class", "row developer-button");
+        pDeveloper.attr("class", "row developer");
         pGenre.attr("class", "row genre");
         col2.attr("class", "col-sm-8");
         row2.attr("class", "row");
@@ -43,7 +43,7 @@ const userMaker = {
             const dev = $("<p>");
             const devLink = $("<a>");
             devLink.text(developers.name);
-            devLink.attr({id: developers.id, href: "#"});
+            devLink.attr({id: developers.id, class: "developer", href: "#"});
             dev.append(devLink);
             pDeveloper.append(dev);
         });
