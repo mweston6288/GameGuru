@@ -3,7 +3,6 @@ module.exports = function(sequelize, DataTypes){
     const Games = sequelize.define("Games",{
         gameID: DataTypes.INTEGER,
         platformsID: DataTypes.INTEGER,
-        storeID: DataTypes.INTEGER,
         developergameID: DataTypes.INTEGER,
         genresID: DataTypes.INTEGER,
         tagID:DataTypes.INTEGER,
@@ -18,10 +17,6 @@ module.exports = function(sequelize, DataTypes){
         Games.belongsToMany(models.Users, {through: "User_Wishlist"});
         Games.belongsToMany(models.Users, {through: "User_Library"});
         Games.belongsTo(models.Developer,{
-            foreignKey: {
-                allowNull: false
-            }});
-        Games.belongsTo(models.Publisher,{
             foreignKey: {
                 allowNull: false
             }});

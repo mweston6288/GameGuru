@@ -50,15 +50,10 @@ $(document).ready( () => {
             .then((req) => {
                 event.preventDefault();
                 console.log(req.genres);
-                const pArray = req.platforms;
+                /*const pArray = req.platforms;
                 const pArrayId = [];
                 pArray.forEach((element) => {
                     pArrayId.push((element.platform.id));
-                });
-                const sArray = req.stores;
-                const sArrayId = [];
-                sArray.forEach((element) => {
-                    sArrayId.push(element.id);
                 });
                 const dArray = req.developers;
                 const dArrayId = [];
@@ -79,15 +74,14 @@ $(document).ready( () => {
                 const pubArrayId = [];
                 pubArray.forEach((element) => {
                     pubArrayId.push(element.id);
-                });
+                });*/
                 const newGame = {
                     gameID: req.id,
-                    platformID: pArrayId,
-                    storeID: sArrayId,
-                    developergameID: dArrayId,
-                    genresID: gArrayId,
-                    tagID: tArrayId,
-                    publishergameID: pubArrayId,
+                    //platformID: pArrayId,
+                    //developergameID: dArrayId,
+                    //genresID: gArrayId,
+                    //tagID: tArrayId,
+                    //publishergameID: pubArrayId,
                     userID: userID,
                 };
                 console.log(newGame);
