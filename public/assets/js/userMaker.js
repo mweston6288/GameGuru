@@ -25,7 +25,7 @@ const userMaker = {
         col1.attr("class", "col-sm-4");
         imgContainer.attr("class", "container-fluid");
         img.attr({src: data.background_image, class: "search-img"});
-        pDeveloper.attr("class", "row developer");
+        pDeveloper.attr("class", "row developer-button");
         pGenre.attr("class", "row genre");
         col2.attr("class", "col-sm-8");
         row2.attr("class", "row");
@@ -71,14 +71,22 @@ const userMaker = {
 
     createSubResult: function(data){
         const body = $("#searchResults");
+        const container = $("<div>");
+        container.attr("class", "container");
         data.results.forEach(function (element) {
             const divContainer = $("<div>");
             const divRow = $("<div>");
+            const imgCol = $("<div>");
+            const textCol = $("<div>");
+            const img = $("<img>");
             const pName = $("<p>");
             const aLink = $("<a>");
 
             divContainer.attr("class", "container");
             divRow.attr("class", "row");
+            imgCol.attr("class", "col-sm-2");
+            textCol.attr("class", "col-sm-10");
+            img.attr({src: element.background_image, class: "search-img"});
             pName.attr("id", "name");
             pName.attr("class", "suggestedGame");
             aLink.attr("id", element.id);
@@ -89,7 +97,10 @@ const userMaker = {
             pName.append(aLink);
             body.append(divContainer);
             divContainer.append(divRow);
-            divRow.append(pName);
+            divRow.append(imgCol);
+            divRow.append(textCol);
+            imgCol.append(img);
+            textCol.append(pName);
         });
     },
     createDevResult: function(data){
