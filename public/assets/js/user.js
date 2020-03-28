@@ -1,7 +1,6 @@
 $(document).ready( () => {
-    const search = $("form.game-search");
+    const search = $("form#game-search");
     const searchTerm = $("input#user-input");
-    const searchType = $("select#search-type");
     const options = $("button#options");
     let userID;
 
@@ -10,7 +9,7 @@ $(document).ready( () => {
         userID = data.id;
     });
 
-    const getName = (searchTerm) => {
+    const getByName = (searchTerm) => {
         let queryURL = "https://api.rawg.io/api/games/"+searchTerm.replace(/ /g, "-");
         $("#searchResults").empty();
         $.get(queryURL)
@@ -24,7 +23,7 @@ $(document).ready( () => {
                     });
             });
     };
-    const getDeveloper = (searchTerm) =>{
+    const getByDeveloper = (searchTerm) =>{
         let queryURL = "https://api.rawg.io/api/developers/" + searchTerm;
         $("#searchResults").empty();
         $.get(queryURL)
@@ -38,17 +37,6 @@ $(document).ready( () => {
                         makeNewSearchEvent();
                     });
             });
-    };
-    const searchAPI = (searchTerm, searchType) => {
-        switch (searchType) {
-        case "name":
-            getName(searchTerm);
-            break;
-        case "developer":
-            getDeveloper(searchTerm);
-            break;
-        default: return;
-        }
     };
 
     const addToWishlist = (gameID)=>{
@@ -98,10 +86,10 @@ $(document).ready( () => {
         const devButton = $("a.developer");
         const wishlistButton = $("button.wishlist-add");
         newSearch.click((event) => {
-            searchAPI(event.toElement.id, "name");
+            getByName(event.toElement.id);
         });
         devButton.click((event)=>{
-            searchAPI(event.toElement.id,"developer");
+            getByDeveloper(event.toElement.id);
         });
         wishlistButton.click((event)=>{
             addToWishlist(event.toElement.id);
@@ -110,16 +98,15 @@ $(document).ready( () => {
     };
     search.on("submit", (event) => {
         event.preventDefault();
-
         const searchData = {
             searchTerm: searchTerm.val().trim(),
-            searchType: searchType.val().trim()
         };
         if (!searchData.searchTerm) {
             return;
         }
-        searchAPI(searchData.searchTerm, searchData.searchType);
+        getByName(searchData.searchTerm);
         searchTerm.val("");
+        window.location.assign("/user");
     });
     options.click((event)=>{
         event.preventDefault();
