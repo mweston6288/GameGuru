@@ -100,7 +100,6 @@ $(document).ready( () => {
             searchAPI(event.toElement.id, "name");
         });
         devButton.click((event)=>{
-            console.log("!")
             searchAPI(event.toElement.id,"developer");
         });
         wishlistButton.click((event)=>{
