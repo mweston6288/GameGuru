@@ -94,7 +94,7 @@ $(document).ready( () => {
     };
     const makeNewSearchEvent =() => {
         const newSearch = $("a.newSeach");
-        const devButton = $("button.developer-button");
+        const devButton = $("a.developer");
         const wishlistButton = $("button.wishlist-add");
         newSearch.click((event) => {
             searchAPI(event.toElement.id, "name");
