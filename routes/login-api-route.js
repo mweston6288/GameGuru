@@ -49,15 +49,27 @@ module.exports = function (app) {
         }
     });
     app.put("/api/user",(req,res)=>{
-        console.log(req.body);
-        db.Users.update(
-            {username: req.body.name},
-            {
-                where: {
-                    id: req.body.id
-                }
-            }).then(function (user) {
-            res.json(user);
-        });
+        if (req.body.name){
+            db.Users.update(
+                {username: req.body.name},
+                {
+                    where: {
+                        id: req.body.id
+                    }
+                }).then(function (user) {
+                res.json(user);
+            });
+        }
+        if(req.body.password){
+            db.Users.update(
+                { password: req.body.password },
+                {
+                    where: {
+                        id: req.body.id
+                    }
+                }).then(function (user) {
+                res.json(user);
+            });
+        }
     });
 };
