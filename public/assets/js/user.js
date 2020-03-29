@@ -58,7 +58,7 @@ $(document).ready( () => {
         const newSearch = $("a.newSearch");
         const devButton = $("a.developer");
         const wishlistButton = $("button.wishlist-add");
-        const libraryAddButton = $("button.library-add")
+        const libraryAddButton = $("button.library-add");
         newSearch.on("click", (event) => {
             getByName(event.toElement.id);
         });
@@ -70,7 +70,7 @@ $(document).ready( () => {
         });
         libraryAddButton.click((event) => {
             addToLibrary(event.toElement.id);
-        })
+        });
     };
     search.on("submit", (event) => {
         event.preventDefault();
