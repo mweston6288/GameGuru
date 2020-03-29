@@ -12,7 +12,6 @@ module.exports = function(sequelize, DataTypes){
         timestamps: false
     });
     Games.associate = function(models){
-        console.log(models);
         //Games.belongsToMany(models.Platforms, {through: "Games_Platform"});
         Games.belongsToMany(models.Users, {through: "User_Wishlist"});
         Games.belongsToMany(models.Users, {through: "User_Library"});

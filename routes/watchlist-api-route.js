@@ -4,7 +4,6 @@ module.exports = (app) => {
     app.get("/api/watchlist", (req, res) => {
         db.Watchlist.findAll({}).then((dbWatchlist) => {
             res.json(dbWatchlist);
-            //console.log(dbWatchlist)
         });
     });
 
@@ -14,23 +13,18 @@ module.exports = (app) => {
                 id: req.params.id
             }.then((dbWatchlist) => {
                 res.json(dbWatchlist);
-                //console.log(dbWatchlist)
             })
         });
     });
 
     app.post("/api/watchlist", (req, res) => {
-        db.Watchlist.create(req.body).then ((dbWatchlist) => {
-            res.json(dbWatchlist);
-            //console.log(dbWatchlist)
-        });
+        res.render("index", req.query);
     });
 
 
     app.delete("/api/watchlist", (req, res) => {
         db.Watchlist.destroy(req.body).then((dbWatchlist) => {
             res.json(dbWatchlist);
-            //console.log(dbWatchlist)
         });
     });
 };

@@ -19,13 +19,13 @@ module.exports = (app) => {
         res.sendFile(path.join(__dirname, "../public/user.html"));
     });
 
-    app.get("/wishlist/:id", isAuthenticated, function (req, res) {
-        console.log(req.query);
-        $.get("/api/wishlist/:id", req.query,(response)=>{
-            console.log(response);
-        })
+    app.get("/wishlist", isAuthenticated, function (req, res) {
+        console.log(req);
+        res.render("index", req.query);
+
         //$.get("/api/wishlist/:id", )
     });
+
     app.get("/watchlist", isAuthenticated, (req, res) => {
         res.sendFile(path.join(__dirname, "../public/watchlist.html"));
     });

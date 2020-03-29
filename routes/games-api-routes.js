@@ -17,12 +17,9 @@ module.exports = (app) => {
         });
     });
     app.post("/api/user/game", (req, res) => {
-        //console.log("Game Data:");
-        console.log(req.body);
         db.Games.create({
             id: req.body.id,
         }).then((dbGames) => {
-            console.log(dbGames);
             res.json(dbGames);
         }).catch((err) => {
             console.log(err);

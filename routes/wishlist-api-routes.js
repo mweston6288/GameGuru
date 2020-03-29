@@ -2,7 +2,6 @@ const db = require("../models");
 
 module.exports = (app) => {
     app.get("/api/wishlist/:id", (req, res) => {
-        console.log(req)
         db.User_Wishlist.findAll({
             where: {
                 userId: req.query.id
@@ -23,7 +22,6 @@ module.exports = (app) => {
     });
 
     app.post("/api/wishlist", (req, res) => {
-        console.log(req.body);
         db.User_Wishlist.create({
             UserId: req.body.userID,
             GameId: req.body.id,

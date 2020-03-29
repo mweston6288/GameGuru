@@ -6,6 +6,6 @@ $(document).ready(() => {
     });
 
     $.get("/api/wishlist/:id", id, (response) => {
-        console.log(response);
+        console.log("Yay!");
     });
-}
+});
