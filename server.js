@@ -24,6 +24,7 @@ require("./routes/html-routes")(app);
 require("./routes/games-api-routes") (app);
 require("./routes/watchlist-api-route") (app);
 require("./routes/wishlist-api-routes") (app);
+require("./routes/library-api-routes") (app);
 
 
 db.sequelize.sync({ force: true }).then(() => {

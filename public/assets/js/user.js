@@ -40,16 +40,25 @@ $(document).ready( () => {
     };
 
     const addToWishlist = (gameID) => {
-        const newGame = {
+        let newGame = {
             id: gameID,
             userID: userID,
         };
         $.post("/api/user/game", newGame).then($.post("/api/wishlist", newGame));
     };
+
+    const addToLibrary = (gameID) => {
+        let newGame = {
+            id: gameID,
+            userID: userID,
+        };
+        $.post("/api/user/game", newGame).then($.post("/api/library", newGame));
+    };
     const makeNewSearchEvent =() => {
         const newSearch = $("a.newSearch");
         const devButton = $("a.developer");
         const wishlistButton = $("button.wishlist-add");
+        const libraryAddButton = $("button.library-add")
         newSearch.on("click", (event) => {
             getByName(event.toElement.id);
         });
@@ -59,6 +68,9 @@ $(document).ready( () => {
         wishlistButton.click((event)=>{
             addToWishlist(event.toElement.id);
         });
+        libraryAddButton.click((event) => {
+            addToLibrary(event.toElement.id);
+        })
     };
     search.on("submit", (event) => {
         event.preventDefault();
