@@ -41,11 +41,11 @@ $(document).ready( () => {
 
     const addToWishlist = (gameID) => {
         const newGame = {
-                id: gameID,
-                userID: userID,
-            };
-            $.post("/api/user/game", newGame).then($.post("/api/wishlist", newGame));
+            id: gameID,
+            userID: userID,
         };
+        $.post("/api/user/game", newGame).then($.post("/api/wishlist", newGame));
+    };
     const makeNewSearchEvent =() => {
         const newSearch = $("a.newSearch");
         const devButton = $("a.developer");

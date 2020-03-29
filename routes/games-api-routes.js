@@ -22,10 +22,10 @@ module.exports = (app) => {
         db.Games.create({
             id: req.body.id,
         }).then((dbGames) => {
-            console.log(dbGames)
+            console.log(dbGames);
             res.json(dbGames);
         }).catch((err) => {
-            console.log(err)
+            console.log(err);
         });
     });
 };

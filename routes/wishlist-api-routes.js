@@ -21,7 +21,7 @@ module.exports = (app) => {
     });
 
     app.post("/api/wishlist", (req, res) => {
-        console.log(req.body)
+        console.log(req.body);
         db.User_Wishlist.create({
             UserId: req.body.userID,
             GameId: req.body.id,
