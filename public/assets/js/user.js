@@ -39,48 +39,13 @@ $(document).ready( () => {
             });
     };
 
-    const addToWishlist = (gameID)=>{
-        const Url = "https://api.rawg.io/api/games/"+ gameID;
-        $.get(Url)
-            .then((req) => {
-                event.preventDefault();
-                /*const pArray = req.platforms;
-                const pArrayId = [];
-                pArray.forEach((element) => {
-                    pArrayId.push((element.platform.id));
-                });
-                const dArray = req.developers;
-                const dArrayId = [];
-                dArray.forEach((element) => {
-                    dArrayId.push(element.id);
-                });
-                const gArray = req.genres;
-                const gArrayId = [];
-                gArray.forEach((element) => {
-                    gArrayId.push(element.id);
-                });
-                const tArray = req.tags;
-                const tArrayId = [];
-                tArray.forEach((element) => {
-                    tArrayId.push(element.id);
-                });
-                const pubArray = req.publishers;
-                const pubArrayId = [];
-                pubArray.forEach((element) => {
-                    pubArrayId.push(element.id);
-                });*/
+    const addToWishlist = (gameID) => {
                 const newGame = {
-                    gameID: req.id,
-                    //platformID: pArrayId,
-                    //developergameID: dArrayId,
-                    //genresID: gArrayId,
-                    //tagID: tArrayId,
-                    //publishergameID: pubArrayId,
+                    id: gameID,
                     userID: userID,
                 };
-                $.post("/api/user/game", newGame);
-            });
-    };
+                $.post("/api/user/game", newGame).then($.post("/api/wishlist", newGame));
+            };
     const makeNewSearchEvent =() => {
         const newSearch = $("a.newSearch");
         const devButton = $("a.developer");

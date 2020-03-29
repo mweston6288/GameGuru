@@ -5,11 +5,11 @@ module.exports = function(sequelize, DataTypes){
             type: DataTypes.INTEGER,
             allowNull: false,
             unique: true,
+            autoIncrement: true,
             primaryKey: true
         },
         GameId: DataTypes.INTEGER,
         UserId: DataTypes.INTEGER,
-        Priority: DataTypes.INTEGER
     },{
         timestamps: false
     });

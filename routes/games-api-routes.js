@@ -20,16 +20,12 @@ module.exports = (app) => {
         //console.log("Game Data:");
         console.log(req.body);
         db.Games.create({
-            gameID: req.body.gameID,
-            plaformID: req.body.plaformID,
-            storeID: req.body.storeID,
-            developergameID: req.body.developergameID,
-            genresID: req.body.genresID,
-            tagID: req.body.tagID,
-            publishergameID: req.body.publishergameID,
-            userID: req.body.userID,
-        }).then(function(dbGames) {
+            id: req.body.id,
+        }).then((dbGames) => {
+            console.log(dbGames)
             res.json(dbGames);
+        }).catch((err) => {
+            console.log(err)
         });
     });
 };
