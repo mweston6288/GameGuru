@@ -57,6 +57,7 @@ module.exports = function (app) {
                         id: req.body.id
                     }
                 }).then(function (user) {
+                req.user.username = req.body.name;
                 res.json(user);
             });
         }

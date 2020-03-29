@@ -106,7 +106,6 @@ $(document).ready( () => {
         }
         getByName(searchData.searchTerm);
         searchTerm.val("");
-        window.location.assign("/user");
     });
     options.click((event)=>{
         event.preventDefault();
