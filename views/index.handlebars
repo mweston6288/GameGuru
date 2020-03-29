@@ -1,20 +1,36 @@
-<h2>Welcome <span class="username"></span></h2>
-<button id="wishlist">Wishlist</button>
-<button id="library">Library</button>
-<button id="watchlist">Watchlist</button>
-<form class="game-search">
-    <div class="form-group">
-        <label for="user-input">Search:</label>
-        <input type="text" class="form-control" id="user-input" placeholder="Game">
-    </div>
-    <div class="form-group">
-        <select id="search-type" name="search by">
-            <option value="name">Name</option>
-            <option value="developer">Developer</option>
-            <option value="Genre">Genre</option>
-        </select>
-    </div>
-    <button type="submit" class="btn btn-default">Search</button>
-</form>
+<nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand"><span class="username"></span></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+        aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
 
-<script src="assets/js/user.js"></script>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav">
+            <li class="nav-item active">
+                <a class="nav-link">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Wishlist</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Library</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Watchlist</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/options">Options</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/logout">Logout</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div id = "wishlist">
+    <ul>
+        {{#each }}
+    </ul>
+</div>

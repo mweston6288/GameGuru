@@ -1,10 +1,12 @@
 const db = require("../models");
 
 module.exports = (app) => {
-    app.get("/api/wishlist", (req, res) => {
-        db.Wishlist.findAll({
-            where: devQuery, pubQuery,
-            include: [db.Developer] [db.Publisher]
+    app.get("/api/wishlist/:id", (req, res) => {
+        console.log(req)
+        db.User_Wishlist.findAll({
+            where: {
+                userId: req.query.id
+            }
         }).then((dbWishlist) => {
             res.json(dbWishlist);
         });

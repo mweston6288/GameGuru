@@ -5,9 +5,14 @@ module.exports = function(sequelize, DataTypes){
             type: DataTypes.INTEGER,
             allowNull: false,
             unique: true,
-            primaryKey: true
+            autoIncrement: true,
+            primaryKey: true,
+
         },
-        GameId: DataTypes.INTEGER,
+        GameId: {
+            type: DataTypes.INTEGER,
+            unique: false
+        },
         UserId: DataTypes.INTEGER,
         Priority: DataTypes.INTEGER
     },{
