@@ -10,8 +10,10 @@ $(document).ready( () => {
     });
 
     const getByName = (searchTerm) => {
+        console.log("Here")
         let queryURL = "https://api.rawg.io/api/games/"+searchTerm.replace(/ /g, "-");
         $("#searchResults").empty();
+        $("#suggestedResults").empty();
         $.get(queryURL)
             .then((searchResponse) => {
                 queryURL = "https://api.rawg.io/api/games/" + searchResponse.id + "/suggested";
@@ -26,6 +28,7 @@ $(document).ready( () => {
     const getByDeveloper = (searchTerm) =>{
         let queryURL = "https://api.rawg.io/api/developers/" + searchTerm;
         $("#searchResults").empty();
+        $("#suggestedResults").empty();
         $.get(queryURL)
             .then((searchResponse) => {
                 queryURL = "https://api.rawg.io/api/games?developers=" + searchTerm;
