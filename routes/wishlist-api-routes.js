@@ -21,7 +21,11 @@ module.exports = (app) => {
     });
 
     app.post("/api/wishlist", (req, res) => {
-        db.Wishlist.create(req.body).then(((dbWishlist) => {
+        console.log(req.body);
+        db.User_Wishlist.create({
+            UserId: req.body.userID,
+            GameId: req.body.id,
+        }).then(((dbWishlist) => {
             res.json(dbWishlist);
         }));
     });

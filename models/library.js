@@ -1,6 +1,6 @@
 module.exports = function(sequelize, DataTypes){
     // pass in id, Name, description, Released, Metacritic, background_image, esrb_rating.name
-    const UserWishList = sequelize.define("User_Wishlist",{
+    const userLibrary = sequelize.define("User_Library",{
         id: {
             type: DataTypes.INTEGER,
             allowNull: false,
@@ -14,5 +14,5 @@ module.exports = function(sequelize, DataTypes){
         timestamps: false
     });
 
-    return UserWishList;
+    return userLibrary;
 };
