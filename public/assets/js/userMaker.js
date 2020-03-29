@@ -3,105 +3,145 @@ const userMaker = {
         const body = $("#searchResults");
         const searchHeader = $("<h3>");
         searchHeader.attr("class", "searchHeader");
+        searchHeader.text("Search Results");
         body.append(searchHeader);
 
+        const card = $("<div>");
+        card.attr("class", "card");
+        body.append(card);
+
         const divContainer = $("<div>");
-        const divRow = $("<div>");
-        const col1 = $("<div>");
-        const imgContainer = $("<div>");
-        const img = $("<img>");
-        const pDeveloper = $("<div>");
-        const pGenre = $("<p>");
-
-        const col2 = $("<div>");
-        const row2 = $("<div>");
-        const pName = $("<h3>");
-        const pDescription = $("<p>");
-        const wishlistButton = $("<button>");
-        const libraryButton = $("<button>");
-
         divContainer.attr("class", "container");
+        card.append(divContainer);
+
+        const divRow = $("<div>");
         divRow.attr("class", "row");
+        divContainer.append(divRow);
+
+        const col1 = $("<div>");
         col1.attr("class", "col-sm-4");
-        imgContainer.attr("class", "container-fluid");
-        img.attr({src: data.background_image, class: "search-img"});
-        pDeveloper.attr("class", "row developer");
-        pGenre.attr("class", "row genre");
-        col2.attr("class", "col-sm-8");
-        row2.attr("class", "row");
-        pName.attr("id", "name");
-        pDescription.attr("id", "description");
-        wishlistButton.attr({id: data.id, class:"wishlist-add"});
-        libraryButton.attr({id: data.id, class:"library-add"});
+        divRow.append(col1);
 
-        pName.text(data.name);
-        pDescription.text(data.description_raw);
-        wishlistButton.text("Add to Wishlist");
-        libraryButton.text("Add to library");
+        const cardLeft = $("<div>");
+        cardLeft.attr("class","card");
+        col1.append(cardLeft);
 
+        const img = $("<img>");
+        img.attr({ src: data.background_image, class: "search-img" });
+        cardLeft.append(img);
+
+        const cardBody = $("<div>");
+        cardBody.attr("class","card-body");
+        cardLeft.append(cardBody);
+
+        const name = $("<h2>");
+        name.text(data.name);
+        cardBody.append(name);
+
+        const devRow = $("<p>");
+        devRow.attr("class", "card-text row");
+        cardLeft.append(devRow);
+
+        const developer = $("<div>");
+        developer.attr("class", "card-text");
         data.developers.forEach(function (developers) {
             const dev = $("<p>");
             const devLink = $("<a>");
             devLink.text(developers.name);
-            devLink.attr({id: developers.id, class: "developer", href: "#"});
+            devLink.attr({ id: developers.id, class: "developer", href: "#" });
             dev.append(devLink);
-            pDeveloper.append(dev);
+            developer.append(dev);
         });
+        cardBody.append(developer);
+
+        const wishlistButton = $("<button>");
+        wishlistButton.attr({ id: data.id, class: "wishlist-add" });
+        wishlistButton.text("Add to Wishlist");
+        cardBody.append(wishlistButton);
+
+        const libraryButton = $("<button>");
+        libraryButton.attr({ id: data.id, class: "library-add" });
+        libraryButton.text("Add to library");
+        cardBody.append(libraryButton);
+
+        const col2 = $("<div>");
+        col2.attr("class", "col-sm-8");
+        divRow.append(col2);
+
+        const pDescription = $("<p>");
+        pDescription.attr("id", "description");
+        pDescription.text(data.description_raw);
+        col2.append(pDescription);
+
+        const pGenre = $("<p>");
+        pGenre.attr("class", "row genre");
         data.genres.forEach(function (genres) {
-            const genre = $("<p>");
+            const genre = $("<a>");
             genre.text(genres.name);
             pGenre.append(genre);
         });
-
-
-        body.append(divContainer);
-        divContainer.append(divRow);
-        divRow.append(col1);
-        col1.append(imgContainer);
-        imgContainer.append(img);
-        col1.append(pDeveloper);
-        col1.append(pGenre);
-        divRow.append(col2);
-        col2.append(row2);
-        row2.append(pName);
-        row2.append(pDescription);
-        divRow.append(wishlistButton);
-        divRow.append(libraryButton);
+        col2.append(pGenre);
     },
 
     createSubResult: function(data){
-        const body = $("#searchResults");
+        const body = $("#suggestedResults");
+        const searchHeader = $("<h3>");
+        searchHeader.attr("class", "suggestedHeader");
+        searchHeader.text("Recommended");
+        body.append(searchHeader);
+
+
         const container = $("<div>");
-        container.attr("class", "container");
+        container.attr({class: "container", id: "suggested"});
         data.results.forEach(function (element) {
-            const divContainer = $("<div>");
+            const card = $("<div>");
+            card.attr("class", "card");
+            container.append(card);
+
             const divRow = $("<div>");
-            const imgCol = $("<div>");
-            const textCol = $("<div>");
-            const img = $("<img>");
-            const pName = $("<p>");
-            const aLink = $("<a>");
-
-            divContainer.attr("class", "container");
             divRow.attr("class", "row");
-            imgCol.attr("class", "col-sm-2");
-            textCol.attr("class", "col-sm-10");
-            img.attr({src: element.background_image, class: "search-img"});
-            pName.attr("id", "name");
-            pName.attr("class", "suggestedGame");
-            aLink.attr("id", element.id);
-            aLink.attr("href", "#");
-            aLink.attr("class", "newSeach");
+            card.append(divRow);
 
+            const imgCol = $("<div>");
+            imgCol.attr("class", "col-sm-2");
+            divRow.append(imgCol);
+
+            const img = $("<img>");
+            img.attr({ src: element.background_image, class: "search-img" });
+            imgCol.append(img);
+
+            const textCol = $("<div>");
+            textCol.attr("class", "col-sm-6");
+            divRow.append(textCol);
+
+            const pName = $("<p>");
+            pName.attr({class: "suggestedGame", id:"name"});
+            textCol.append(pName);
+
+            const aLink = $("<a>");
+            aLink.attr({class: "newSearch", id: element.id, href: "#"});
             aLink.text(element.name);
             pName.append(aLink);
-            body.append(divContainer);
-            divContainer.append(divRow);
-            divRow.append(imgCol);
-            divRow.append(textCol);
-            imgCol.append(img);
-            textCol.append(pName);
+
+            const wishListCol = $("<div>");
+            wishListCol.attr("class", "col-sm-2");
+            divRow.append(wishListCol);
+
+            const wishlistBtn = $("<button>");
+            wishlistBtn.attr({class: "wishlist-add", id: element.id});
+            wishlistBtn.text("Add to Wishlist");
+            wishListCol.append(wishlistBtn);
+
+            const libraryCol = $("<div>");
+            libraryCol.attr("class", "col-sm-2");
+            divRow.append(libraryCol);
+
+            const libraryBtn = $("<button>");
+            libraryBtn.attr({ class: "library-add", id: element.id });
+            libraryBtn.text("Add to Library");
+            libraryCol.append(libraryBtn);
         });
+        body.append(container);
     },
     createDevResult: function(data){
         const body = $("#searchResults");
