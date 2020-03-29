@@ -10,7 +10,6 @@ $(document).ready( () => {
     });
 
     const getByName = (searchTerm) => {
-        console.log("Here")
         let queryURL = "https://api.rawg.io/api/games/"+searchTerm.replace(/ /g, "-");
         $("#searchResults").empty();
         $("#suggestedResults").empty();
@@ -36,7 +35,6 @@ $(document).ready( () => {
                     .then((gameSearch)=>{
                         userMaker.createDevResult(searchResponse);
                         userMaker.createSubResult(gameSearch);
-
                         makeNewSearchEvent();
                     });
             });
@@ -85,19 +83,18 @@ $(document).ready( () => {
             });
     };
     const makeNewSearchEvent =() => {
-        const newSearch = $("a.newSeach");
+        const newSearch = $("a.newSearch");
         const devButton = $("a.developer");
         const wishlistButton = $("button.wishlist-add");
-        newSearch.click((event) => {
+        newSearch.on("click", (event) => {
             getByName(event.toElement.id);
         });
-        devButton.click((event)=>{
+        devButton.on("click", (event)=>{
             getByDeveloper(event.toElement.id);
         });
         wishlistButton.click((event)=>{
             addToWishlist(event.toElement.id);
         });
-
     };
     search.on("submit", (event) => {
         event.preventDefault();
