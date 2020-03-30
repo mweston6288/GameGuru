@@ -49,17 +49,28 @@ $(document).ready( () => {
     };
 
     const addToLibrary = (gameID) => {
-        let newGame = {
+        const newGame = {
             id: gameID,
             userID: userID,
         };
         $.post("/api/user/game", newGame).then($.post("/api/library", newGame));
     };
+
+    const addToWatch = (devId) => {
+        const newDev = {
+            id: devId,
+            userID: userID
+        };
+        console.log(newDev, devId)
+        $.post("/api/watchlist", newDev)
+        .then($.post("api/developer", newDev));
+    }
     const makeNewSearchEvent =() => {
         const newSearch = $("a.newSearch");
         const devButton = $("a.developer");
         const wishlistButton = $("button.wishlist-add");
         const libraryAddButton = $("button.library-add");
+        const addWatch =$('button.watchlist-add');
         newSearch.on("click", (event) => {
             getByName(event.toElement.id);
         });
@@ -72,6 +83,9 @@ $(document).ready( () => {
         libraryAddButton.click((event) => {
             addToLibrary(event.toElement.id);
         });
+        addWatch.click((event) => {
+            addToWatch(event.toElement.id)
+        })
     };
     search.on("submit", (event) => {
         event.preventDefault();
