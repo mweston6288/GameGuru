@@ -7,9 +7,70 @@ $(document).ready(() => {
         userID = data.id;
     });
 
-    function addEventListeners(watchlistBtn, libraryBtn) {
+    function loadGames(searchTerm){
+        const queryURL = "https://api.rawg.io/api/games?developers=" + searchTerm;
+        $.get(queryURL)
+            .then((response)=>{
+                const parent = $("#watchlist-games");
+                parent.empty();
+                response.results.forEach((data)=>{
+                    const container = $("<div>");
+                    container.attr({ class: "container" });
+                    parent.append(container);
+
+                    const card = $("<div>");
+                    card.attr("class", "card");
+                    container.append(card);
+
+                    const divRow = $("<div>");
+                    divRow.attr("class", "row");
+                    card.append(divRow);
+
+                    const imgCol = $("<div>");
+                    imgCol.attr("class", "col-sm-2");
+                    divRow.append(imgCol);
+
+                    const img = $("<img>");
+                    img.attr({ src: data.background_image, class: "search-img" });
+                    imgCol.append(img);
+
+                    const textCol = $("<div>");
+                    textCol.attr("class", "col-sm-6");
+                    divRow.append(textCol);
+
+                    const pName = $("<p>");
+                    pName.attr({ class: "suggestedGame", id: "name" });
+                    textCol.append(pName);
+
+                    const aLink = $("<a>");
+                    aLink.attr({ class: "newSearch", id: data.id, href: "#" });
+                    aLink.text(data.name);
+                    pName.append(aLink);
+
+                    const wishListCol = $("<div>");
+                    wishListCol.attr("class", "col-sm-2");
+                    divRow.append(wishListCol);
+
+                    const wishlistBtn = $("<button>");
+                    wishlistBtn.attr({ class: "wishlist-rem", id: data.id });
+                    wishlistBtn.text("Remove from Wishlist");
+                    wishListCol.append(wishlistBtn);
+
+                    const libraryCol = $("<div>");
+                    libraryCol.attr("class", "col-sm-2");
+                    divRow.append(libraryCol);
+
+                    const libraryBtn = $("<button>");
+                    libraryBtn.attr({ class: "library-add", id: data.id });
+                    libraryBtn.text("Add to Library");
+                    libraryCol.append(libraryBtn);
+                    addEventListeners(wishlistBtn, libraryBtn);
+                });
+            });
+    }
+    function addEventListeners(watchlistBtn, gameBtn) {
         watchlistBtn.on("click", (event) => {
-            $.ajax("/api/watchlist/:id", {
+            $.ajax("/api/watchlist/", {
                 type: "DELETE",
                 data: { userID: userID, id: event.toElement.id }
             })
@@ -18,11 +79,8 @@ $(document).ready(() => {
                     location.reload();
                 });
         });
-        libraryBtn.on("click", (event) => {
-            const data = { userID: userID, id: event.toElement.id };
-            $.post("/api/library", data, (res) => {
-                console.log(res);
-            });
+        gameBtn.on("click", (event) => {
+            loadGames(event.toElement.id);
         });
     }
     function buildElement(parent, data) {
@@ -43,7 +101,7 @@ $(document).ready(() => {
         divRow.append(imgCol);
 
         const img = $("<img>");
-        img.attr({ src: data.background_image, class: "search-img" });
+        img.attr({ src: data.image_background, class: "search-img" });
         imgCol.append(img);
 
         const textCol = $("<div>");
@@ -68,15 +126,15 @@ $(document).ready(() => {
         watchlistBtn.text("Remove from watchlist");
         watchlistCol.append(watchlistBtn);
 
-        const libraryCol = $("<div>");
-        libraryCol.attr("class", "col-sm-2");
-        divRow.append(libraryCol);
+        const gameCol = $("<div>");
+        gameCol.attr("class", "col-sm-2");
+        divRow.append(gameCol);
 
-        const libraryBtn = $("<button>");
-        libraryBtn.attr({ class: "library-add", id: data.id });
-        libraryBtn.text("Add to Library");
-        libraryCol.append(libraryBtn);
-        addEventListeners(watchlistBtn, libraryBtn);
+        const gameBtn = $("<button>");
+        gameBtn.attr({ class: "game-add", id: data.id });
+        gameBtn.text("Check Games");
+        gameCol.append(gameBtn);
+        addEventListeners(watchlistBtn, gameBtn);
     }
 
     for (let i = 0; i < watchlist.length; i++) {

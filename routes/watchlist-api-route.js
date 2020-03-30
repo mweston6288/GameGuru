@@ -30,7 +30,12 @@ module.exports = (app) => {
 
 
     app.delete("/api/watchlist", (req, res) => {
-        db.Watchlist.destroy(req.body).then((dbWatchlist) => {
+        db.User_Watchlist.destroy({
+            where:{
+                UserId: req.body.userID,
+                DeveloperId: req.body.id
+            }
+        }).then((dbWatchlist) => {
             res.json(dbWatchlist);
         });
     });

@@ -15,8 +15,8 @@ module.exports = (app) => {
             where:{
                 UserId: req.body.userID,
                 GameId: req.body.id},
-        }).then((dbWishlist) => {
-            res.json(dbWishlist);
+        }).then((dbLibrary) => {
+            res.json(dbLibrary);
         });
     });
 };
