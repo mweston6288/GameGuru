@@ -64,7 +64,7 @@ $(document).ready(() => {
     for (let i = 0; i < wishlist.length; i++){
         const id = wishlist[i].attributes.id.value;
         const queryURL = "https://api.rawg.io/api/games/"+id;
-        const liElement = $("li#"+id);
+        const liElement = $("div#"+id);
         console.log(queryURL);
         $.get(queryURL).then((res)=>{
             buildElement(liElement, res);

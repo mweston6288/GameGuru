@@ -31,12 +31,10 @@
         </ul>
     </div>
 </nav>
-
+<h3>Your Wishlist</h3>
 <div id = "wishlist">
-    <ul>
-        {{#each games}}
-        <li class = "wishlist-item" id = {{id}}></li>
-        {{/each}}
-    </ul>
+    {{#each games}}
+    <div class = "wishlist-item" id = {{id}}></li>
+    {{/each}}
 </div>
 <script src="./assets/js/wishlist.js"></script>
