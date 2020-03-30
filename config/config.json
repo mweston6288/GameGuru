@@ -1,7 +1,7 @@
 {
   "development": {
     "username": "root",
-    "password": "100Grovewood!",
+    "password": "",
     "database": "gameguruDB",
     "host": "127.0.0.1",
     "dialect": "mysql",
