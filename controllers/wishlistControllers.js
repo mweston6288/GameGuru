@@ -7,7 +7,7 @@ router.get("/wishlist", isAuthenticated, (req,res)=>{
         const hbsObject = {
             games: data
         };
-        res.render("index", hbsObject);
+        res.render("wishlist", hbsObject);
 
     });
 });
