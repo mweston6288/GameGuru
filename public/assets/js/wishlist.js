@@ -1,4 +1,5 @@
 $(document).ready(() => {
+    let userID;
     const wishlist = $(".wishlist-item");
 
     $.get("/api/user_data").then((data) => {
@@ -6,6 +7,19 @@ $(document).ready(() => {
         userID = data.id;
     });
 
+    function addEventListeners(wishlistBtn,libraryBtn){
+        wishlistBtn.on("click", (event)=>{
+            console.log(event);
+            $.ajax("/api/wishlist",{
+                type: "DELETE",
+                data: { userID: userID, id: event.toElement.id }
+            })
+
+            .then(()=>{
+                location.reload
+            })
+        })
+    }
     function buildElement(parent, data){
         console.log(parent);
         const container = $("<div>");
@@ -58,6 +72,7 @@ $(document).ready(() => {
         libraryBtn.attr({ class: "library-add", id: data.id });
         libraryBtn.text("Add to Library");
         libraryCol.append(libraryBtn);
+        addEventListeners(wishlistBtn, libraryBtn);
     }
     console.log(wishlist);
 
