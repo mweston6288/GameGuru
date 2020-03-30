@@ -61,16 +61,16 @@ $(document).ready( () => {
             id: devId,
             userID: userID
         };
-        console.log(newDev, devId)
+        console.log(newDev, devId);
         $.post("/api/watchlist", newDev)
-        .then($.post("api/developer", newDev));
-    }
+            .then($.post("api/developer", newDev));
+    };
     const makeNewSearchEvent =() => {
         const newSearch = $("a.newSearch");
         const devButton = $("a.developer");
         const wishlistButton = $("button.wishlist-add");
         const libraryAddButton = $("button.library-add");
-        const addWatch =$('button.watchlist-add');
+        const addWatch =$("button.watchlist-add");
         newSearch.on("click", (event) => {
             getByName(event.toElement.id);
         });
@@ -84,8 +84,8 @@ $(document).ready( () => {
             addToLibrary(event.toElement.id);
         });
         addWatch.click((event) => {
-            addToWatch(event.toElement.id)
-        })
+            addToWatch(event.toElement.id);
+        });
     };
     search.on("submit", (event) => {
         event.preventDefault();
