@@ -10,10 +10,11 @@ module.exports = (app) => {
         }));
     });
 
-    app.delete("/api/library", (req, res) => {
+    app.delete("/api/library/:id", (req, res) => {
         db.User_Library.destroy({
+            where:{
             UserId: req.body.userID,
-            GameId: req.body.id,
+            GameId: req.body.id},
         }).then((dbWishlist) => {
             res.json(dbWishlist);
         });

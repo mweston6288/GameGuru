@@ -1,6 +1,6 @@
 module.exports = function(sequelize, DataTypes){
     // pass in id, Name, description, Released, Metacritic, background_image, esrb_rating.name
-    const userLibrary = sequelize.define("User_Library",{
+    const UserLibrary = sequelize.define("User_Library",{
         id: {
             type: DataTypes.INTEGER,
             allowNull: false,
@@ -14,5 +14,19 @@ module.exports = function(sequelize, DataTypes){
         timestamps: false
     });
 
-    return userLibrary;
+    UserLibrary.getLibrary = function (userID, cb) {
+        UserLibrary.findAll({
+            where: {
+                UserId: userID
+            }
+        }).then((res) => {
+            const data = [];
+            res.forEach((element) => {
+                data.push({ id: element.GameId });
+            });
+            return cb(null, data);
+        });
+    };
+
+    return UserLibrary;
 };
