@@ -26,6 +26,8 @@ require("./routes/watchlist-api-route") (app);
 require("./routes/wishlist-api-routes") (app);
 require("./routes/library-api-routes") (app);
 
+require("./routes/developer-api-route") (app);
+
 const routes = require("./controllers/wishlistControllers");
 app.use(routes);
 app.use(require("./controllers/libraryControllers"));

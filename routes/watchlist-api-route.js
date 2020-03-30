@@ -18,8 +18,14 @@ module.exports = (app) => {
     });
 
     app.post("/api/watchlist", (req, res) => {
-        res.render("index", req.query);
+        db.User_Watchlist.create({
+            UserId: req.body.userID,
+            DeveloperId: req.body.id,
+        }).then(((dbWatchlist) => {
+            res.json(dbWatchlist);
+        }));
     });
+
 
 
     app.delete("/api/watchlist", (req, res) => {
