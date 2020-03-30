@@ -12,6 +12,6 @@ module.exports = function(sequelize, DataTypes){
     });
     Developer.associate = (models) => {
         Developer.belongsToMany(models.Users, {through: "User_Watchlist"});
-    }
+    };
     return Developer;
 };
