@@ -30,10 +30,11 @@ module.exports = (app) => {
         }));
     });
 
-    app.delete("/api/wishlist", (req, res) => {
+    app.delete("/api/wishlist/:id", (req, res) => {
         db.User_Wishlist.destroy({
-            UserId: req.body.userID,
-            GameId: req.body.id,
+            where:{
+                UserId: req.body.userID,
+                GameId: req.body.id},
         }).then((dbWishlist) => {
             res.json(dbWishlist);
         });

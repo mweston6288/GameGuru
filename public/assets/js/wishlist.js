@@ -1,4 +1,5 @@
 $(document).ready(() => {
+    let userID;
     const wishlist = $(".wishlist-item");
 
     $.get("/api/user_data").then((data) => {
@@ -6,8 +7,22 @@ $(document).ready(() => {
         userID = data.id;
     });
 
+    function addEventListeners(wishlistBtn,libraryBtn){
+        wishlistBtn.on("click", (event)=>{
+            $.ajax("/api/wishlist/:id",{
+                type: "DELETE",
+                data: { userID: userID, id: event.toElement.id }
+            })
+
+                .then(()=>{
+                    location.reload();
+                });
+        });
+        libraryBtn.on("click", (event)=>{
+            console.log(event);
+        });
+    }
     function buildElement(parent, data){
-        console.log(parent);
         const container = $("<div>");
         container.attr({ class: "container"});
         parent.append(container);
@@ -58,14 +73,13 @@ $(document).ready(() => {
         libraryBtn.attr({ class: "library-add", id: data.id });
         libraryBtn.text("Add to Library");
         libraryCol.append(libraryBtn);
+        addEventListeners(wishlistBtn, libraryBtn);
     }
-    console.log(wishlist);
 
     for (let i = 0; i < wishlist.length; i++){
         const id = wishlist[i].attributes.id.value;
         const queryURL = "https://api.rawg.io/api/games/"+id;
         const liElement = $("div#"+id);
-        console.log(queryURL);
         $.get(queryURL).then((res)=>{
             buildElement(liElement, res);
 
