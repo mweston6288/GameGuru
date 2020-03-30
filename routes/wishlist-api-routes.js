@@ -34,7 +34,7 @@ module.exports = (app) => {
         db.User_Wishlist.destroy({
             where:{
                 UserId: req.body.userID,
-            GameId: req.body.id},
+                GameId: req.body.id},
         }).then((dbWishlist) => {
             res.json(dbWishlist);
         });
