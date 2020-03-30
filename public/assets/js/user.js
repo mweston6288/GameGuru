@@ -62,8 +62,8 @@ $(document).ready( () => {
             userID: userID
         };
         console.log(newDev, devId);
-        $.post("/api/watchlist", newDev)
-            .then($.post("api/user/developer", newDev));
+        $.post("/api/developer", newDev)
+            .then($.post("/api/watchlist", newDev));
     };
     const makeNewSearchEvent =() => {
         const newSearch = $("a.newSearch");

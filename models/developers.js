@@ -1,6 +1,6 @@
 module.exports = function(sequelize, DataTypes){
     const Developer = sequelize.define("Developer",{
-        DeveloperId: {
+        id: {
             type: DataTypes.INTEGER,
             allowNull: false,
             unique: true,
