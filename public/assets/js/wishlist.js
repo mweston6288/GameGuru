@@ -14,10 +14,13 @@ $(document).ready(() => {
                 data: { userID: userID, id: event.toElement.id }
             })
 
-            .then(()=>{
-                location.reload()
-            })
-        })
+                .then(()=>{
+                    location.reload();
+                });
+        });
+        libraryBtn.on("click", (event)=>{
+            console.log(event);
+        });
     }
     function buildElement(parent, data){
         const container = $("<div>");
