@@ -63,7 +63,7 @@ $(document).ready( () => {
         };
         console.log(newDev, devId);
         $.post("/api/watchlist", newDev)
-        .then($.post("api/user/developer", newDev));
+            .then($.post("api/user/developer", newDev));
     };
     const makeNewSearchEvent =() => {
         const newSearch = $("a.newSearch");
