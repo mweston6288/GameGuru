@@ -12,9 +12,10 @@ module.exports = (app) => {
     });
 
     app.get("/api/wishlist", (req, res) => {
-        db.Wishlist.findOne({
+        db.User_Wishlist.findOne({
             where:  {
-                id: req.params.id
+                UserId: req.query.userId,
+                GameId: req.query.gameId
             },
         }).then((dbWishlist) => {
             res.json(dbWishlist);

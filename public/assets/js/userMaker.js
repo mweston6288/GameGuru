@@ -1,5 +1,7 @@
 const userMaker = {
-    createMainResult: function(data){
+    createMainResult: function(user, data){
+        console.log(data);
+        let query;
         const body = $("#searchResults");
         const searchHeader = $("<h3>");
         searchHeader.attr("class", "searchHeader");
@@ -55,13 +57,29 @@ const userMaker = {
         cardBody.append(developer);
 
         const wishlistButton = $("<button>");
-        wishlistButton.attr({ id: data.id, class: "wishlist-add" });
-        wishlistButton.text("Add to Wishlist");
+        query = {userId: user, gameId:data.id};
+        $.get("/api/wishlist", query).then((res)=>{
+            console.log(res);
+            if (res){
+                wishlistButton.attr({ id: data.id, class: "wishlist-rem" });
+                wishlistButton.text("Remove from Wishlist");
+            } else {
+                wishlistButton.attr({ id: data.id, class: "wishlist-add" });
+                wishlistButton.text("Add to Wishlist");
+            }
+        });
         cardBody.append(wishlistButton);
 
         const libraryButton = $("<button>");
-        libraryButton.attr({ id: data.id, class: "library-add" });
-        libraryButton.text("Add to library");
+        $.get("/api/library", query).then((res) => {
+            if (res) {
+                wishlistButton.attr({ id: data.id, class: "library-rem" });
+                wishlistButton.text("Remove from Library");
+            } else {
+                libraryButton.attr({ id: data.id, class: "library-add" });
+                libraryButton.text("Add to Library");
+            }
+        });
         cardBody.append(libraryButton);
 
         const col2 = $("<div>");
@@ -83,7 +101,7 @@ const userMaker = {
         col2.append(pGenre);
     },
 
-    createSubResult: function(data){
+    createSubResult: function (user, data){
         const body = $("#suggestedResults");
         const searchHeader = $("<h3>");
         searchHeader.attr("class", "suggestedHeader");
@@ -143,7 +161,7 @@ const userMaker = {
         });
         body.append(container);
     },
-    createDevResult: function(data){
+    createDevResult: function (user, data){
         const body = $("#searchResults");
         const searchHeader = $("<h3>");
         searchHeader.attr("class", "searchHeader");
