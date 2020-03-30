@@ -9,7 +9,6 @@ module.exports = function(sequelize, DataTypes){
             primaryKey: true
         },
         UserId: DataTypes.INTEGER,
-        DeveloperId: DataTypes.INTEGER,
     },{
         timestamps: false
     });

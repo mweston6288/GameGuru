@@ -16,9 +16,9 @@ module.exports = (app) => {
             res.json(dbDeveloper);
         });
     });
-    app.post("/api/user/developer", (req, res) => {
+    app.post("/api/developer", (req, res) => {
         db.Developer.create({
-            DeveloperId: req.body.id,
+            id: req.body.id,
         }).then((dbDeveloper) => {
             res.json(dbDeveloper);
         }).catch((err) => {
