@@ -25,7 +25,7 @@ require("./routes/games-api-routes") (app);
 require("./routes/watchlist-api-route") (app);
 require("./routes/wishlist-api-routes") (app);
 
-const routes = require("./controller/wishlistController");
+const routes = require("./controllers/wishlistControllers");
 app.use(routes);
 
 db.sequelize.sync({ force: true }).then(() => {

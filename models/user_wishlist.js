@@ -13,5 +13,19 @@ module.exports = function(sequelize, DataTypes){
         timestamps: false
     });
 
+    UserWishList.getWishlist = function(userID, cb){
+        UserWishList.findAll({
+            where: {
+                UserId: userID
+            }
+        }).then((res)=>{
+            const data = [];
+            res.forEach((element)=>{
+                data.push({id: element.GameId});
+            })
+            return cb(null, data);
+        });
+    };
+
     return UserWishList;
 };
