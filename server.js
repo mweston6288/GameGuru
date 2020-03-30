@@ -28,6 +28,7 @@ require("./routes/library-api-routes") (app);
 
 const routes = require("./controllers/wishlistControllers");
 app.use(routes);
+app.use(require("./controllers/libraryControllers"));
 
 db.sequelize.sync({ force: true }).then(() => {
     app.listen(PORT, () => {

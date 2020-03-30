@@ -1,33 +1,26 @@
 $(document).ready(() => {
     let userID;
-    const wishlist = $(".wishlist-item");
+    const library = $(".library-item");
 
     $.get("/api/user_data").then((data) => {
         $(".username").text(data.username);
         userID = data.id;
     });
 
-    function addEventListeners(wishlistBtn,libraryBtn){
-        wishlistBtn.on("click", (event)=>{
-            $.ajax("/api/wishlist/:id",{
+    function addEventListeners(libraryBtn) {
+        libraryBtn.on("click", (event) => {
+            $.ajax("/api/library/:id", {
                 type: "DELETE",
                 data: { userID: userID, id: event.toElement.id }
             })
-
-                .then(()=>{
+                .then(() => {
                     location.reload();
                 });
         });
-        libraryBtn.on("click", (event)=>{
-            const data = {userID: userID, id: event.toElement.id};
-            $.post("/api/library", data, (res)=>{
-                console.log(res);
-            });
-        });
     }
-    function buildElement(parent, data){
+    function buildElement(parent, data) {
         const container = $("<div>");
-        container.attr({ class: "container"});
+        container.attr({ class: "container" });
         parent.append(container);
 
         const card = $("<div>");
@@ -59,31 +52,23 @@ $(document).ready(() => {
         aLink.text(data.name);
         pName.append(aLink);
 
-        const wishListCol = $("<div>");
-        wishListCol.attr("class", "col-sm-2");
-        divRow.append(wishListCol);
-
-        const wishlistBtn = $("<button>");
-        wishlistBtn.attr({ class: "wishlist-rem", id: data.id });
-        wishlistBtn.text("Remove from Wishlist");
-        wishListCol.append(wishlistBtn);
-
         const libraryCol = $("<div>");
-        libraryCol.attr("class", "col-sm-2");
+        libraryCol.attr("class", "col-sm-4");
         divRow.append(libraryCol);
 
         const libraryBtn = $("<button>");
-        libraryBtn.attr({ class: "library-add", id: data.id });
-        libraryBtn.text("Add to Library");
+        libraryBtn.attr({ class: "library-rem", id: data.id });
+        libraryBtn.text("Remove from library");
         libraryCol.append(libraryBtn);
-        addEventListeners(wishlistBtn, libraryBtn);
+
+        addEventListeners(libraryBtn);
     }
 
-    for (let i = 0; i < wishlist.length; i++){
-        const id = wishlist[i].attributes.id.value;
-        const queryURL = "https://api.rawg.io/api/games/"+id;
-        const liElement = $("div#"+id);
-        $.get(queryURL).then((res)=>{
+    for (let i = 0; i < library.length; i++) {
+        const id = library[i].attributes.id.value;
+        const queryURL = "https://api.rawg.io/api/games/" + id;
+        const liElement = $("div#" + id);
+        $.get(queryURL).then((res) => {
             buildElement(liElement, res);
 
         });
