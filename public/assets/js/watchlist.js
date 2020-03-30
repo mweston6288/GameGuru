@@ -6,14 +6,28 @@ $(document).ready(() => {
         $(".username").text(data.username);
         userID = data.id;
     });
-
-    function loadGames(searchTerm){
+    function addGameEventListeners(wishlistBtn, libraryBtn) {
+        wishlistBtn.on("click", (event) => {
+            $.ajax("/api/wishlist/:id", {
+                type: "DELETE",
+                data: { userID: userID, id: event.toElement.id }
+            });
+        });
+        libraryBtn.on("click", (event) => {
+            const data = { userID: userID, id: event.toElement.id };
+            $.post("/api/user/game", data)
+                .then(() => {
+                    $.post("/api/library");
+                });
+        });
+    }
+    function loadGames(searchTerm) {
         const queryURL = "https://api.rawg.io/api/games?developers=" + searchTerm;
         $.get(queryURL)
-            .then((response)=>{
+            .then((response) => {
                 const parent = $("#watchlist-games");
                 parent.empty();
-                response.results.forEach((data)=>{
+                response.results.forEach((data) => {
                     const container = $("<div>");
                     container.attr({ class: "container" });
                     parent.append(container);
@@ -64,9 +78,10 @@ $(document).ready(() => {
                     libraryBtn.attr({ class: "library-add", id: data.id });
                     libraryBtn.text("Add to Library");
                     libraryCol.append(libraryBtn);
-                    addEventListeners(wishlistBtn, libraryBtn);
+                    addGameEventListeners(wishlistBtn, libraryBtn);
                 });
             });
+
     }
     function addEventListeners(watchlistBtn, gameBtn) {
         watchlistBtn.on("click", (event) => {
@@ -146,5 +161,4 @@ $(document).ready(() => {
 
         });
     }
-
 });
