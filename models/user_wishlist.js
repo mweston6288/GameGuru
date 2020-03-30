@@ -22,7 +22,7 @@ module.exports = function(sequelize, DataTypes){
             const data = [];
             res.forEach((element)=>{
                 data.push({id: element.GameId});
-            })
+            });
             return cb(null, data);
         });
     };
