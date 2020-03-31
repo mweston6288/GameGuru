@@ -14,6 +14,10 @@ $(document).ready(() => {
         const newUsername = {
             name: $("#username").val().trim()
         };
+        if (!newUsername.name){
+            console.log("Username cannot be blank");
+            return;
+        }
         newUsername.id = userID;
         $.ajax({
             type: "PUT",
@@ -25,10 +29,17 @@ $(document).ready(() => {
     });
     $(".changePassword").on("submit",(event)=>{
         event.preventDefault();
-        const password = $("#password-input").val().trim();
-        const passwordConfirm = $("#password-input-confirm").val().trim();
-        const newPassword = {};
-        if (password !== passwordConfirm) {
+        const newPassword = {
+            password: $("#password-input").val().trim(),
+            passwordConfirm: $("#password-input-confirm").val().trim()
+
+        };
+        if (!newPassword.password){
+            console.log("Password cannot be blank");
+            return;
+        }
+        if (newPassword.password !== newPassword.passwordConfirm) {
+            console.log("Password fields do not match");
             return;
         }
         newPassword.id = userID;
