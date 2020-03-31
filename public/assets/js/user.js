@@ -8,25 +8,46 @@ $(document).ready( () => {
         $(".username").text(data.username);
         userID = data.id;
     });
+    const createTwitchStream = (twitchID)=>{
+        console.log(twitchID);
+        const options = {
+            width: 400,
+            height: 300,
+            video: twitchID,
+            autoplay: false
+        };
+        const player = new Twitch.Player("twitchStream", options);
+        player.setVolume(0.5);
+    };
 
     const getByName = (searchTerm) => {
         let queryURL = "https://api.rawg.io/api/games/"+searchTerm.replace(/ /g, "-");
         $("#searchResults").empty();
         $("#suggestedResults").empty();
+        $("#twitchStream").empty();
         $.get(queryURL)
             .then((searchResponse) => {
                 queryURL = "https://api.rawg.io/api/games/" + searchResponse.id + "/suggested";
-                $.get(queryURL)
-                    .then((searchResponse) => {
-                        queryURL = "https://api.rawg.io/api/games/" + searchResponse.id + "twitch";
-                });
+                const twitchqueryURL = "https://api.rawg.io/api/games/" + searchResponse.id + "/twitch";
                 $.get(queryURL)
                     .then((simResponse) => {
                         userMaker.createMainResult(searchResponse, userID);
                         userMaker.createSubResult(simResponse, userID);
-                    makeNewSearchEvent();
+                        makeNewSearchEvent();
+                    });
+                $.get(twitchqueryURL)
+                    .then((twitchResponse)=>{
+                        console.log(twitchResponse);
+                        let twitchID = -1;
+                        twitchResponse.results.forEach((element)=>{
+                            if (element.external_id > twitchID){
+                                twitchID = element.external_id;
+                            }
+                        });
+                        createTwitchStream(twitchID);
+                    });
+
             });
-    });
     };
     const getByDeveloper = (searchTerm) =>{
         let queryURL = "https://api.rawg.io/api/developers/" + searchTerm;
