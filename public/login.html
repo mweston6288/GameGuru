@@ -5,13 +5,16 @@
   <meta charset="UTF-8">
   <title>Game Guru</title>
   <link href="https://maxcdn.bootstrapcdn.com/bootswatch/4.0.0/flatly/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="css/styles.css" media="screen" title="no title">
+  <link rel="stylesheet" href="./assets/css/style.css" media="screen" title="no title">
   <script src="https://code.jquery.com/jquery.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 </head>
 
 <body>
+  <div class = "container">
   <form class = "login">
+    
+    <img src = "./assets/images/GG.png" class = "rounded mx-auto d-block" id = "logo">
     <div class = "form-group">
       <label for = "user-input">Username</label>
       <input type = "text" class = "form-control" id = "user-input" placeholder = "Username">
@@ -20,9 +23,13 @@
       <label for="password-input">Password</label>
       <input type="password" class="form-control" id="password-input"  placeholder = "Password">
     </div>
-    <button type="submit" class="btn btn-default">Login</button>
+              <div style="display: none" id="alert" class="alert alert-danger" role="alert">
+                <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                <span class="sr-only">Error:</span> <span class="msg"></span>
+              </div>    <button type="submit" class="btn btn-default">Login</button>
   </form>
   <p>Don't have an account? <a href = "/signup">Sign up for one</a></p>
+  </div>
   <script src = "./assets/js/login.js"></script>
 </body>
 </html>

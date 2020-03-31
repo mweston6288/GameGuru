@@ -9,7 +9,10 @@ module.exports = function(sequelize, DataTypes) {
         },
         password:{
             type: DataTypes.STRING,
-            allowNull: false
+            allowNull: false,
+            validate:{
+                len: [8, 128]
+            }
         }
     },{
         timestamps: false
@@ -29,8 +32,10 @@ module.exports = function(sequelize, DataTypes) {
     User.addHook("beforeCreate", function (user) {
         user.password = bcrypt.hashSync(user.password, bcrypt.genSaltSync(10), null);
     });
-    User.addHook("beforeBulkUpdate", function (user){
-        user.attributes.password = bcrypt.hashSync(user.attributes.password, bcrypt.genSaltSync(10), null);
+    User.addHook("beforeBulkUpdate", function (user) {
+        if (user.attributes.password) {
+            user.attributes.password = bcrypt.hashSync(user.attributes.password, bcrypt.genSaltSync(10), null);
+        }
     });
 
     return User;
