@@ -1,5 +1,6 @@
 const userMaker = {
-    createMainResult: function(data){
+    createMainResult: function(data, UserId){
+        let query;
         const body = $("#searchResults");
         const searchHeader = $("<h3>");
         searchHeader.attr("class", "searchHeader");
@@ -55,13 +56,43 @@ const userMaker = {
         cardBody.append(developer);
 
         const wishlistButton = $("<button>");
-        wishlistButton.attr({ id: data.id, class: "wishlist-add" });
-        wishlistButton.text("Add to Wishlist");
+        query = {UserId: UserId, GameId: data.id};
+        $.ajax({
+            async: false,
+            type: "GET",
+            url: "/api/wishlist",
+            data: query,
+            success: (res)=>{
+                if (res){
+                    wishlistButton.attr({ id: data.id, class: "wishlist-rem" });
+                    wishlistButton.text("Added to Wishlist");
+                    wishlistButton.prop("disabled", true);
+                } else{
+                    wishlistButton.attr({ id: data.id, class: "wishlist-add" });
+                    wishlistButton.text("Add to Wishlist");
+                }
+            }
+        });
         cardBody.append(wishlistButton);
 
         const libraryButton = $("<button>");
-        libraryButton.attr({ id: data.id, class: "library-add" });
-        libraryButton.text("Add to library");
+        $.ajax({
+            async: false,
+            type: "GET",
+            url: "/api/library",
+            data: query,
+            success: (res) => {
+                if (res) {
+                    libraryButton.attr({ id: data.id, class: "library-rem" });
+                    libraryButton.text("Added to Library");
+                    libraryButton.prop("disabled", true);
+
+                } else {
+                    libraryButton.attr({ id: data.id, class: "library-add" });
+                    libraryButton.text("Add to Library");
+                }
+            }
+        });
         cardBody.append(libraryButton);
 
         const col2 = $("<div>");
@@ -83,7 +114,8 @@ const userMaker = {
         col2.append(pGenre);
     },
 
-    createSubResult: function(data){
+    createSubResult: function(data, UserId){
+        let query;
         const body = $("#suggestedResults");
         const searchHeader = $("<h3>");
         searchHeader.attr("class", "suggestedHeader");
@@ -128,8 +160,24 @@ const userMaker = {
             divRow.append(wishListCol);
 
             const wishlistBtn = $("<button>");
-            wishlistBtn.attr({class: "wishlist-add", id: element.id});
-            wishlistBtn.text("Add to Wishlist");
+            query = { UserId: UserId, GameId: element.id };
+            $.ajax({
+                async: false,
+                type: "GET",
+                url: "/api/wishlist",
+                data: query,
+                success: (res) => {
+                    if (res) {
+                        wishlistBtn.attr({ id: element.id, class: "wishlist-rem" });
+                        wishlistBtn.text("Added to Wishlist");
+                        wishlistBtn.prop("disabled", true);
+
+                    } else {
+                        wishlistBtn.attr({ id: element.id, class: "wishlist-add" });
+                        wishlistBtn.text("Add to Wishlist");
+                    }
+                }
+            });
             wishListCol.append(wishlistBtn);
 
             const libraryCol = $("<div>");
@@ -137,13 +185,30 @@ const userMaker = {
             divRow.append(libraryCol);
 
             const libraryBtn = $("<button>");
-            libraryBtn.attr({ class: "library-add", id: element.id });
-            libraryBtn.text("Add to Library");
+            $.ajax({
+                async: false,
+                type: "GET",
+                url: "/api/library",
+                data: query,
+                success: (res) => {
+                    if (res) {
+                        libraryBtn.attr({ id: element.id, class: "library-rem" });
+                        libraryBtn.text("Added to Library");
+                        libraryBtn.prop("disabled", true);
+
+                    } else {
+                        libraryBtn.attr({ id: element.id, class: "library-add" });
+                        libraryBtn.text("Add to Library");
+                    }
+                }
+            });
             libraryCol.append(libraryBtn);
         });
         body.append(container);
     },
-    createDevResult: function(data){
+    createDevResult: function(data, UserId){
+        const query = { UserId: UserId, DeveloperId: data.id };
+
         const body = $("#searchResults");
         const searchHeader = $("<h3>");
         searchHeader.attr("class", "searchHeader");
@@ -168,10 +233,26 @@ const userMaker = {
         col2.attr("class", "col-sm-4");
         row2.attr("class", "row");
         pName.attr("id", "name");
-        watchlistButton.attr({ id: data.id, class: "watchlist-add" });
 
         pName.text(data.name);
-        watchlistButton.text("Add to Watchlist");
+        console.log(query);
+        $.ajax({
+            async: false,
+            type: "GET",
+            url: "/api/watchlist",
+            data: query,
+            success: (res) => {
+                if (res) {
+                    watchlistButton.attr({ id: data.id, class: "watchlist-rem" });
+                    watchlistButton.text("Added to Watchlist");
+                    watchlistButton.prop("disabled", true);
+
+                } else {
+                    watchlistButton.attr({ id: data.id, class: "watchlist-add" });
+                    watchlistButton.text("Add to Watchlist");
+                }
+            }
+        });
 
         body.append(divContainer);
         divContainer.append(divRow);

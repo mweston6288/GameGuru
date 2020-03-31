@@ -18,8 +18,8 @@ $(document).ready( () => {
                 queryURL = "https://api.rawg.io/api/games/" + searchResponse.id + "/suggested";
                 $.get(queryURL)
                     .then((simResponse) => {
-                        userMaker.createMainResult(searchResponse);
-                        userMaker.createSubResult(simResponse);
+                        userMaker.createMainResult(searchResponse, userID);
+                        userMaker.createSubResult(simResponse, userID);
                         makeNewSearchEvent();
                     });
             });
@@ -33,8 +33,8 @@ $(document).ready( () => {
                 queryURL = "https://api.rawg.io/api/games?developers=" + searchTerm;
                 $.get(queryURL)
                     .then((gameSearch)=>{
-                        userMaker.createDevResult(searchResponse);
-                        userMaker.createSubResult(gameSearch);
+                        userMaker.createDevResult(searchResponse, userID);
+                        userMaker.createSubResult(gameSearch, userID);
                         makeNewSearchEvent();
                     });
             });
@@ -48,6 +48,7 @@ $(document).ready( () => {
         $.post("/api/user/game", newGame).then($.post("/api/wishlist", newGame));
     };
 
+
     const addToLibrary = (gameID) => {
         const newGame = {
             id: gameID,
@@ -56,37 +57,63 @@ $(document).ready( () => {
         $.post("/api/user/game", newGame).then($.post("/api/library", newGame));
     };
 
+
     const addToWatch = (devId) => {
         const newDev = {
             id: devId,
             userID: userID
         };
-        console.log(newDev, devId);
         $.post("/api/developer", newDev)
             .then($.post("/api/watchlist", newDev));
     };
+
     const makeNewSearchEvent =() => {
         const newSearch = $("a.newSearch");
         const devButton = $("a.developer");
         const wishlistButton = $("button.wishlist-add");
+        const removewish = $("button.wishlist-rem");
         const libraryAddButton = $("button.library-add");
+        const libraryRemButton = $("button.library-rem");
         const addWatch =$("button.watchlist-add");
+        const removeWatch = $("button.watchlist-rem");
+
+        newSearch.off();
+        devButton.off();
+        wishlistButton.off();
+        removewish.off();
+        libraryAddButton.off();
+        libraryRemButton.off();
+        addWatch.off();
+        removeWatch.off();
+
         newSearch.on("click", (event) => {
             getByName(event.toElement.id);
         });
         devButton.on("click", (event)=>{
             getByDeveloper(event.toElement.id);
         });
-        wishlistButton.click((event)=>{
+        wishlistButton.on("click", function(event){
             addToWishlist(event.toElement.id);
+            $(this).attr("class", "wishlist-rem");
+            $(this).text("Added to Wishlist");
+            $(this).prop("disabled", true);
         });
-        libraryAddButton.click((event) => {
+
+        libraryAddButton.on("click",function(event){
             addToLibrary(event.toElement.id);
+            $(this).attr("class", "library-rem");
+            $(this).text("Added to Library");
+            $(this).prop("disabled", true);
         });
-        addWatch.click((event) => {
+
+        addWatch.on("click", function(event){
             addToWatch(event.toElement.id);
+            $(this).attr("class", "watchlist-rem");
+            $(this).text("Added to Watchlist");
+            $(this).prop("disabled", true);
         });
     };
+
     search.on("submit", (event) => {
         event.preventDefault();
         const searchData = {

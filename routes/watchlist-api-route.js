@@ -2,7 +2,13 @@ const db = require("../models");
 
 module.exports = (app) => {
     app.get("/api/watchlist", (req, res) => {
-        db.Watchlist.findAll({}).then((dbWatchlist) => {
+
+        db.User_Watchlist.findOne({
+            where:{
+                UserId: req.query.UserId,
+                DeveloperId: req.query.DeveloperId
+            }
+        }).then((dbWatchlist) => {
             res.json(dbWatchlist);
         });
     });
@@ -18,7 +24,6 @@ module.exports = (app) => {
     });
 
     app.post("/api/watchlist", (req, res) => {
-        console.log(req.body);
         db.User_Watchlist.create({
             UserId: req.body.userID,
             DeveloperId: req.body.id,
@@ -30,7 +35,12 @@ module.exports = (app) => {
 
 
     app.delete("/api/watchlist", (req, res) => {
-        db.Watchlist.destroy(req.body).then((dbWatchlist) => {
+        db.User_Watchlist.destroy({
+            where:{
+                UserId: req.body.userID,
+                DeveloperId: req.body.id
+            }
+        }).then((dbWatchlist) => {
             res.json(dbWatchlist);
         });
     });

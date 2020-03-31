@@ -12,6 +12,19 @@ module.exports = function(sequelize, DataTypes){
     },{
         timestamps: false
     });
+    UserWatchlist.getWatchlist = function (userID, cb) {
+        UserWatchlist.findAll({
+            where: {
+                UserId: userID
+            }
+        }).then((res) => {
+            const data = [];
+            res.forEach((element) => {
+                data.push({ id: element.DeveloperId });
+            });
+            return cb(null, data);
+        });
+    };
 
     return UserWatchlist;
 };

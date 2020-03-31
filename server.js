@@ -31,6 +31,7 @@ require("./routes/developer-api-route") (app);
 const routes = require("./controllers/wishlistControllers");
 app.use(routes);
 app.use(require("./controllers/libraryControllers"));
+app.use(require("./controllers/watchlistControllers"));
 
 db.sequelize.sync({ force: true }).then(() => {
     app.listen(PORT, () => {

@@ -18,12 +18,14 @@ $(document).ready(() => {
                     location.reload();
                 });
         });
-        libraryBtn.on("click", (event)=>{
-            const data = {userID: userID, id: event.toElement.id};
-            $.post("/api/library", data, (res)=>{
-                console.log(res);
+        if (libraryBtn.attr("class")==="library-add"){
+            libraryBtn.on("click", (event)=>{
+                const data = {userID: userID, id: event.toElement.id};
+                $.post("/api/library", data, (res)=>{
+                    console.log(res);
+                });
             });
-        });
+        }
     }
     function buildElement(parent, data){
         const container = $("<div>");
@@ -64,6 +66,7 @@ $(document).ready(() => {
         divRow.append(wishListCol);
 
         const wishlistBtn = $("<button>");
+
         wishlistBtn.attr({ class: "wishlist-rem", id: data.id });
         wishlistBtn.text("Remove from Wishlist");
         wishListCol.append(wishlistBtn);
@@ -73,8 +76,24 @@ $(document).ready(() => {
         divRow.append(libraryCol);
 
         const libraryBtn = $("<button>");
-        libraryBtn.attr({ class: "library-add", id: data.id });
-        libraryBtn.text("Add to Library");
+        const query = { UserId: userID, GameId: data.id };
+        $.ajax({
+            async: false,
+            type: "GET",
+            url: "/api/library",
+            data: query,
+            success: (res) => {
+                if (res) {
+                    libraryBtn.attr({ id: data.id, class: "library-rem" });
+                    libraryBtn.text("Added to Library");
+                    libraryBtn.prop("disabled", true);
+
+                } else {
+                    libraryBtn.attr({ id: data.id, class: "library-add" });
+                    libraryBtn.text("Add to Library");
+                }
+            }
+        });
         libraryCol.append(libraryBtn);
         addEventListeners(wishlistBtn, libraryBtn);
     }
