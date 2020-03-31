@@ -33,7 +33,7 @@ $(document).ready( () => {
                 queryURL = "https://api.rawg.io/api/games?developers=" + searchTerm;
                 $.get(queryURL)
                     .then((gameSearch)=>{
-                        userMaker.createDevResult(searchResponse);
+                        userMaker.createDevResult(searchResponse, userID);
                         userMaker.createSubResult(gameSearch, userID);
                         makeNewSearchEvent();
                     });
@@ -67,6 +67,18 @@ $(document).ready( () => {
         };
         $.post("/api/user/game", newGame).then($.post("/api/library", newGame));
     };
+    const removeFromLibrary = (gameID) => {
+        const game = {
+            id: gameID,
+            userID: userID,
+        };
+        $.ajax({
+            type: "DELETE",
+            url: "api/library/:id",
+            data: game
+        });
+
+    };
 
     const addToWatch = (devId) => {
         const newDev = {
@@ -76,13 +88,26 @@ $(document).ready( () => {
         $.post("/api/developer", newDev)
             .then($.post("/api/watchlist", newDev));
     };
+    const removeFromWatch = (devId)=>{
+        const dev = {
+            id: devId,
+            userID: userID
+        }
+        $.ajax({
+            type: "DELETE",
+            url: "api/library/:id",
+            data: dev
+        });
+    }
     const makeNewSearchEvent =() => {
         const newSearch = $("a.newSearch");
         const devButton = $("a.developer");
         const wishlistButton = $("button.wishlist-add");
         const removewish = $("button.wishlist-rem");
         const libraryAddButton = $("button.library-add");
+        const libraryRemButton = $("button.library-rem");
         const addWatch =$("button.watchlist-add");
+        const removeWatch = $("button.watchlist-rem");
         newSearch.on("click", (event) => {
             getByName(event.toElement.id);
         });
@@ -102,11 +127,29 @@ $(document).ready( () => {
             $(this).text("Add to Wishlist");
             makeNewSearchEvent();
         });
-        libraryAddButton.click((event) => {
+        libraryAddButton.on("click",function(event){
             addToLibrary(event.toElement.id);
+            $(this).attr("class", "library-rem");
+            $(this).text("Remove from Library");
+            makeNewSearchEvent();
         });
-        addWatch.click((event) => {
+        libraryRemButton.on("click", function(event){
+            removeFromLibrary(event.toElement.id);
+            $(this).attr("class", "library-add");
+            $(this).text("Add to Library");
+            makeNewSearchEvent();
+        });
+        addWatch.on("click", function(event){
             addToWatch(event.toElement.id);
+            $(this).attr("class", "watchlist-rem");
+            $(this).text("Remove from Watchlist");
+            makeNewSearchEvent();
+        });
+        removeWatch.on("click", function(event){
+            removeFromWatch(event.toElement.id);
+            $(this).attr("class", "watchlist-add");
+            $(this).text("Add to Watchlist");
+            makeNewSearchEvent();
         });
     };
     search.on("submit", (event) => {

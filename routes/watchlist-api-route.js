@@ -2,7 +2,13 @@ const db = require("../models");
 
 module.exports = (app) => {
     app.get("/api/watchlist", (req, res) => {
-        db.Watchlist.findAll({}).then((dbWatchlist) => {
+
+        db.User_Watchlist.findOne({
+            where:{
+                UserId: req.query.UserId,
+                DeveloperId: req.query.DeveloperId
+            }
+        }).then((dbWatchlist) => {
             res.json(dbWatchlist);
         });
     });

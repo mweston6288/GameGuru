@@ -199,7 +199,9 @@ const userMaker = {
         });
         body.append(container);
     },
-    createDevResult: function(data){
+    createDevResult: function(data, UserId){
+        const query = { UserId: UserId, DeveloperId: data.id };
+
         const body = $("#searchResults");
         const searchHeader = $("<h3>");
         searchHeader.attr("class", "searchHeader");
@@ -224,10 +226,24 @@ const userMaker = {
         col2.attr("class", "col-sm-4");
         row2.attr("class", "row");
         pName.attr("id", "name");
-        watchlistButton.attr({ id: data.id, class: "watchlist-add" });
 
         pName.text(data.name);
-        watchlistButton.text("Add to Watchlist");
+        console.log(query);
+        $.ajax({
+            async: false,
+            type: "GET",
+            url: "/api/watchlist",
+            data: query,
+            success: (res) => {
+                if (res) {
+                    watchlistButton.attr({ id: data.id, class: "watchlist-rem" });
+                    watchlistButton.text("Remove from Watchlist");
+                } else {
+                    watchlistButton.attr({ id: data.id, class: "watchlist-add" });
+                    watchlistButton.text("Add to Watchlist");
+                }
+            }
+        });
 
         body.append(divContainer);
         divContainer.append(divRow);
