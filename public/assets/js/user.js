@@ -17,12 +17,16 @@ $(document).ready( () => {
             .then((searchResponse) => {
                 queryURL = "https://api.rawg.io/api/games/" + searchResponse.id + "/suggested";
                 $.get(queryURL)
+                    .then((searchResponse) => {
+                        queryURL = "https://api.rawg.io/api/games/" + searchResponse.id + "twitch";
+                });
+                $.get(queryURL)
                     .then((simResponse) => {
                         userMaker.createMainResult(searchResponse, userID);
                         userMaker.createSubResult(simResponse, userID);
-                        makeNewSearchEvent();
-                    });
+                    makeNewSearchEvent();
             });
+    });
     };
     const getByDeveloper = (searchTerm) =>{
         let queryURL = "https://api.rawg.io/api/developers/" + searchTerm;
