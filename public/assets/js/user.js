@@ -47,6 +47,18 @@ $(document).ready( () => {
         };
         $.post("/api/user/game", newGame).then($.post("/api/wishlist", newGame));
     };
+    const removeFromWishlist = (gameID)=>{
+        const game = {
+            id: gameID,
+            userID: userID,
+        };
+        $.ajax({
+            type: "DELETE",
+            url: "api/wishlist/:id",
+            data: game
+        });
+
+    };
 
     const addToLibrary = (gameID) => {
         const newGame = {
@@ -68,6 +80,7 @@ $(document).ready( () => {
         const newSearch = $("a.newSearch");
         const devButton = $("a.developer");
         const wishlistButton = $("button.wishlist-add");
+        const removewish = $("button.wishlist-rem");
         const libraryAddButton = $("button.library-add");
         const addWatch =$("button.watchlist-add");
         newSearch.on("click", (event) => {
@@ -76,8 +89,18 @@ $(document).ready( () => {
         devButton.on("click", (event)=>{
             getByDeveloper(event.toElement.id);
         });
-        wishlistButton.click((event)=>{
+        wishlistButton.on("click", function(event){
             addToWishlist(event.toElement.id);
+            $(this).attr("class", "wishlist-rem");
+            $(this).text("Remove from Wishlist");
+            makeNewSearchEvent();
+        });
+        removewish.on("click", function(event){
+            console.log(event);
+            removeFromWishlist(event.toElement.id);
+            $(this).attr("class", "wishlist-add");
+            $(this).text("Add to Wishlist");
+            makeNewSearchEvent();
         });
         libraryAddButton.click((event) => {
             addToLibrary(event.toElement.id);
