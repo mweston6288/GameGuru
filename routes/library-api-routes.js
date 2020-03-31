@@ -14,8 +14,8 @@ module.exports = (app) => {
     app.get("/api/library", (req, res) => {
         db.User_Library.findOne({
             where: {
-                UserId: req.query.userId,
-                GameId: req.query.gameId
+                UserId: req.query.UserId,
+                GameId: req.query.GameId
             },
         }).then((dblibrary) => {
             res.json(dblibrary);

@@ -14,8 +14,8 @@ module.exports = (app) => {
     app.get("/api/wishlist", (req, res) => {
         db.User_Wishlist.findOne({
             where:  {
-                UserId: req.query.userId,
-                GameId: req.query.gameId
+                UserId: req.query.UserId,
+                GameId: req.query.GameId
             },
         }).then((dbWishlist) => {
             res.json(dbWishlist);

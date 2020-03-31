@@ -18,8 +18,8 @@ $(document).ready( () => {
                 queryURL = "https://api.rawg.io/api/games/" + searchResponse.id + "/suggested";
                 $.get(queryURL)
                     .then((simResponse) => {
-                        userMaker.createMainResult(userID, searchResponse);
-                        userMaker.createSubResult(userID, simResponse);
+                        userMaker.createMainResult(searchResponse, userID);
+                        userMaker.createSubResult(simResponse, userID);
                         makeNewSearchEvent();
                     });
             });
@@ -33,8 +33,8 @@ $(document).ready( () => {
                 queryURL = "https://api.rawg.io/api/games?developers=" + searchTerm;
                 $.get(queryURL)
                     .then((gameSearch)=>{
-                        userMaker.createDevResult(userID, searchResponse);
-                        userMaker.createSubResult(userID, gameSearch);
+                        userMaker.createDevResult(searchResponse);
+                        userMaker.createSubResult(gameSearch, userID);
                         makeNewSearchEvent();
                     });
             });
@@ -61,7 +61,6 @@ $(document).ready( () => {
             id: devId,
             userID: userID
         };
-        console.log(newDev, devId);
         $.post("/api/developer", newDev)
             .then($.post("/api/watchlist", newDev));
     };

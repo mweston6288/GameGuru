@@ -18,7 +18,6 @@ module.exports = (app) => {
     });
 
     app.post("/api/watchlist", (req, res) => {
-        console.log(req.body);
         db.User_Watchlist.create({
             UserId: req.body.userID,
             DeveloperId: req.body.id,
