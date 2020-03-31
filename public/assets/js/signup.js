@@ -7,8 +7,11 @@ $(document).ready(function () {
     // Does a post to the signup route. If successful, we are redirected to the members page
     // Otherwise we log any errors
     function handleLoginErr(err) {
-        $("#alert .msg").text(err.responseJSON);
+        $("#alert .msg").text(err.responseJSON.errors[0].message);
         $("#alert").fadeIn(500);
+        usernameInput.val("");
+        passwordInput.val("");
+        passwordConfirm.val("");
     }
     function signUpUser(username, password) {
         $.post("/api/signup", {
@@ -18,7 +21,7 @@ $(document).ready(function () {
             .then(function () {
                 window.location.assign("/user");
                 // If there's an error, handle it by throwing up a bootstrap alert
-            }).catch(handleLoginErr);
+            }).fail(handleLoginErr);
     }
 
 
@@ -32,16 +35,26 @@ $(document).ready(function () {
         };
 
         if (!userData.username || !userData.password) {
+            $("#alert .msg").text("Username and password cannot be blank");
+            $("#alert").fadeIn(500);
+            usernameInput.val("");
+            passwordInput.val("");
+            passwordConfirm.val("");
             return;
         }
         if (userData.password !== userData.passwordConfirm){
+            $("#alert .msg").text("Password fields do not match");
+            $("#alert").fadeIn(500);
+            usernameInput.val("");
+            passwordInput.val("");
+            passwordConfirm.val("");
             return;
         }
         // If we have a username and password, run the signUpUser function
         signUpUser(userData.username, userData.password);
         usernameInput.val("");
         passwordInput.val("");
-        passwordInputConfirm.val("");
+        passwordConfirm.val("");
     });
 
 });

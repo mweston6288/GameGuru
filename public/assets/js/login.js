@@ -9,8 +9,11 @@ $(document).ready(function() {
             password: password
         }).then(function () {
             window.location.assign("/user");
-        }).catch(function (err) {
-            console.log(err);
+        }).fail(function () {
+            $("#alert .msg").text("Username or Password is incorrect");
+            $("#alert").fadeIn(500);
+            userInput.val("");
+            passwordInput.val("");
         });
     }
     // Validate login information when login button is clicked
@@ -22,11 +25,15 @@ $(document).ready(function() {
         };
         // Confirm the fields were filled in
         if(!userData.username || !userData.password){
+            $("#alert .msg").text("Username and password cannot be blank");
+            $("#alert").fadeIn(500);
+            userInput.val("");
+            passwordInput.val("");
             return;
         }
 
         loginUser(userData.username, userData.password);
-        emailInput.val("");
+        userInput.val("");
         passwordInput.val("");
     });
 });
