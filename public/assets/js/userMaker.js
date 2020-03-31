@@ -65,7 +65,8 @@ const userMaker = {
             success: (res)=>{
                 if (res){
                     wishlistButton.attr({ id: data.id, class: "wishlist-rem" });
-                    wishlistButton.text("Remove from Wishlist");
+                    wishlistButton.text("Added to Wishlist");
+                    wishlistButton.prop("disabled", true);
                 } else{
                     wishlistButton.attr({ id: data.id, class: "wishlist-add" });
                     wishlistButton.text("Add to Wishlist");
@@ -83,7 +84,9 @@ const userMaker = {
             success: (res) => {
                 if (res) {
                     libraryButton.attr({ id: data.id, class: "library-rem" });
-                    libraryButton.text("Remove from Library");
+                    libraryButton.text("Added to Library");
+                    libraryButton.prop("disabled", true);
+
                 } else {
                     libraryButton.attr({ id: data.id, class: "library-add" });
                     libraryButton.text("Add to Library");
@@ -166,7 +169,9 @@ const userMaker = {
                 success: (res) => {
                     if (res) {
                         wishlistBtn.attr({ id: element.id, class: "wishlist-rem" });
-                        wishlistBtn.text("Remove from Wishlist");
+                        wishlistBtn.text("Added to Wishlist");
+                        wishlistBtn.prop("disabled", true);
+
                     } else {
                         wishlistBtn.attr({ id: element.id, class: "wishlist-add" });
                         wishlistBtn.text("Add to Wishlist");
@@ -188,7 +193,9 @@ const userMaker = {
                 success: (res) => {
                     if (res) {
                         libraryBtn.attr({ id: element.id, class: "library-rem" });
-                        libraryBtn.text("Remove from Library");
+                        libraryBtn.text("Added to Library");
+                        libraryBtn.prop("disabled", true);
+
                     } else {
                         libraryBtn.attr({ id: element.id, class: "library-add" });
                         libraryBtn.text("Add to Library");
@@ -237,7 +244,9 @@ const userMaker = {
             success: (res) => {
                 if (res) {
                     watchlistButton.attr({ id: data.id, class: "watchlist-rem" });
-                    watchlistButton.text("Remove from Watchlist");
+                    watchlistButton.text("Added to Watchlist");
+                    watchlistButton.prop("disabled", true);
+
                 } else {
                     watchlistButton.attr({ id: data.id, class: "watchlist-add" });
                     watchlistButton.text("Add to Watchlist");

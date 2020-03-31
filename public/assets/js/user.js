@@ -108,6 +108,16 @@ $(document).ready( () => {
         const libraryRemButton = $("button.library-rem");
         const addWatch =$("button.watchlist-add");
         const removeWatch = $("button.watchlist-rem");
+
+        newSearch.off();
+        devButton.off();
+        wishlistButton.off();
+        removewish.off();
+        libraryAddButton.off();
+        libraryRemButton.off();
+        addWatch.off();
+        removeWatch.off();
+
         newSearch.on("click", (event) => {
             getByName(event.toElement.id);
         });
@@ -117,41 +127,25 @@ $(document).ready( () => {
         wishlistButton.on("click", function(event){
             addToWishlist(event.toElement.id);
             $(this).attr("class", "wishlist-rem");
-            $(this).text("Remove from Wishlist");
-            makeNewSearchEvent();
+            $(this).text("Added to Wishlist");
+            $(this).prop("disabled", true);
         });
-        removewish.on("click", function(event){
-            console.log(event);
-            removeFromWishlist(event.toElement.id);
-            $(this).attr("class", "wishlist-add");
-            $(this).text("Add to Wishlist");
-            makeNewSearchEvent();
-        });
+
         libraryAddButton.on("click",function(event){
             addToLibrary(event.toElement.id);
             $(this).attr("class", "library-rem");
-            $(this).text("Remove from Library");
-            makeNewSearchEvent();
+            $(this).text("Added to Library");
+            $(this).prop("disabled", true);
         });
-        libraryRemButton.on("click", function(event){
-            removeFromLibrary(event.toElement.id);
-            $(this).attr("class", "library-add");
-            $(this).text("Add to Library");
-            makeNewSearchEvent();
-        });
+
         addWatch.on("click", function(event){
             addToWatch(event.toElement.id);
             $(this).attr("class", "watchlist-rem");
-            $(this).text("Remove from Watchlist");
-            makeNewSearchEvent();
-        });
-        removeWatch.on("click", function(event){
-            removeFromWatch(event.toElement.id);
-            $(this).attr("class", "watchlist-add");
-            $(this).text("Add to Watchlist");
-            makeNewSearchEvent();
+            $(this).text("Added to Watchlist");
+            $(this).prop("disabled", true);
         });
     };
+
     search.on("submit", (event) => {
         event.preventDefault();
         const searchData = {
