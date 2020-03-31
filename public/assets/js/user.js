@@ -47,18 +47,7 @@ $(document).ready( () => {
         };
         $.post("/api/user/game", newGame).then($.post("/api/wishlist", newGame));
     };
-    const removeFromWishlist = (gameID)=>{
-        const game = {
-            id: gameID,
-            userID: userID,
-        };
-        $.ajax({
-            type: "DELETE",
-            url: "api/wishlist/:id",
-            data: game
-        });
 
-    };
 
     const addToLibrary = (gameID) => {
         const newGame = {
@@ -67,18 +56,7 @@ $(document).ready( () => {
         };
         $.post("/api/user/game", newGame).then($.post("/api/library", newGame));
     };
-    const removeFromLibrary = (gameID) => {
-        const game = {
-            id: gameID,
-            userID: userID,
-        };
-        $.ajax({
-            type: "DELETE",
-            url: "api/library/:id",
-            data: game
-        });
 
-    };
 
     const addToWatch = (devId) => {
         const newDev = {
@@ -88,17 +66,7 @@ $(document).ready( () => {
         $.post("/api/developer", newDev)
             .then($.post("/api/watchlist", newDev));
     };
-    const removeFromWatch = (devId)=>{
-        const dev = {
-            id: devId,
-            userID: userID
-        }
-        $.ajax({
-            type: "DELETE",
-            url: "api/library/:id",
-            data: dev
-        });
-    }
+
     const makeNewSearchEvent =() => {
         const newSearch = $("a.newSearch");
         const devButton = $("a.developer");

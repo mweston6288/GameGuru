@@ -7,19 +7,31 @@ $(document).ready(() => {
         userID = data.id;
     });
     function addGameEventListeners(wishlistBtn, libraryBtn) {
-        wishlistBtn.on("click", (event) => {
-            $.ajax("/api/wishlist/:id", {
-                type: "DELETE",
-                data: { userID: userID, id: event.toElement.id }
+        if (wishlistBtn.attr("class")==="wishlist-add"){
+            wishlistBtn.on("click", function(event){
+                let newGame = {
+                    id: event.toElement.id,
+                    userID: userID,
+                };
+                console.log(newGame);
+                $.post("/api/user/game", newGame).then($.post("/api/wishlist", newGame));
+                $(this).attr("class", "wishlist-rem");
+                $(this).text("Added to Wishlist");
+                $(this).prop("disabled", true);
             });
-        });
-        libraryBtn.on("click", (event) => {
-            const data = { userID: userID, id: event.toElement.id };
-            $.post("/api/user/game", data)
-                .then(() => {
-                    $.post("/api/library");
-                });
-        });
+        }
+        if(libraryBtn.attr("class")==="library-add"){
+            libraryBtn.on("click", function(event){
+                const data = { userID: userID, id: event.toElement.id };
+                $.post("/api/user/game", data)
+                    .then(() => {
+                        $.post("/api/library", data);
+                    });
+                $(this).attr("class", "library-rem");
+                $(this).text("Added to Library");
+                $(this).prop("disabled", true);
+            });
+        }
     }
     function loadGames(searchTerm) {
         const queryURL = "https://api.rawg.io/api/games?developers=" + searchTerm;
@@ -27,6 +39,9 @@ $(document).ready(() => {
             .then((response) => {
                 const parent = $("#watchlist-games");
                 parent.empty();
+                const header = $("<h3>");
+                header.text("Games");
+                parent.append(header);
                 response.results.forEach((data) => {
                     const container = $("<div>");
                     container.attr({ class: "container" });
@@ -66,8 +81,24 @@ $(document).ready(() => {
                     divRow.append(wishListCol);
 
                     const wishlistBtn = $("<button>");
-                    wishlistBtn.attr({ class: "wishlist-rem", id: data.id });
-                    wishlistBtn.text("Remove from Wishlist");
+                    const query = { UserId: userID, GameId: data.id };
+                    $.ajax({
+                        async: false,
+                        type: "GET",
+                        url: "/api/wishlist",
+                        data: query,
+                        success: (res) => {
+                            if (res) {
+                                wishlistBtn.attr({ id: data.id, class: "wishlist-rem" });
+                                wishlistBtn.text("Added to Wishlist");
+                                wishlistBtn.prop("disabled", true);
+
+                            } else {
+                                wishlistBtn.attr({ id: data.id, class: "wishlist-add" });
+                                wishlistBtn.text("Add to Wishlist");
+                            }
+                        }
+                    });
                     wishListCol.append(wishlistBtn);
 
                     const libraryCol = $("<div>");
@@ -75,8 +106,23 @@ $(document).ready(() => {
                     divRow.append(libraryCol);
 
                     const libraryBtn = $("<button>");
-                    libraryBtn.attr({ class: "library-add", id: data.id });
-                    libraryBtn.text("Add to Library");
+                    $.ajax({
+                        async: false,
+                        type: "GET",
+                        url: "/api/library",
+                        data: query,
+                        success: (res) => {
+                            if (res) {
+                                libraryBtn.attr({ id: data.id, class: "library-rem" });
+                                libraryBtn.text("Added to Library");
+                                libraryBtn.prop("disabled", true);
+
+                            } else {
+                                libraryBtn.attr({ id: data.id, class: "library-add" });
+                                libraryBtn.text("Add to Library");
+                            }
+                        }
+                    });
                     libraryCol.append(libraryBtn);
                     addGameEventListeners(wishlistBtn, libraryBtn);
                 });
