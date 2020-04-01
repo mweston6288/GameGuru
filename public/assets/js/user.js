@@ -1,7 +1,6 @@
 $(document).ready( () => {
     const search = $("form#game-search");
     const searchTerm = $("input#user-input");
-    const options = $("button#options");
     let userID;
 
     $.get("/api/user_data").then( (data) => {
@@ -9,7 +8,9 @@ $(document).ready( () => {
         userID = data.id;
     });
     const createTwitchStream = (twitchID)=>{
-        console.log(twitchID);
+        const twitchDiv = $("<div>");
+        twitchDiv.attr("id", "twitchStream");
+        $("#searchResults").after(twitchDiv);
         const options = {
             width: 400,
             height: 300,
@@ -19,18 +20,35 @@ $(document).ready( () => {
         const player = new Twitch.Player("twitchStream", options);
         player.setVolume(0.5);
     };
+    const makeSpinner = (element)=>{
+        const div = $("<div>");
+        div.attr("class", "d-flex justify-content-center");
+        element.append(div);
+        const spinnerDiv = $("<div>");
+        spinnerDiv.attr({ class: "spinner-border text-dark", role: "status" });
+        div.append(spinnerDiv);
+        const spinnerSpan = $("<span>");
+        spinnerSpan.attr("class", "sr-only");
+        spinnerSpan.text("Loading...");
+        spinnerDiv.append(spinnerSpan);
+    };
 
     const getByName = (searchTerm) => {
         let queryURL = "https://api.rawg.io/api/games/"+searchTerm.replace(/ /g, "-");
+        $("#twitchStream").remove();
         $("#searchResults").empty();
         $("#suggestedResults").empty();
         $("#twitchStream").empty();
-        $.get(queryURL)
+        $.get(queryURL, function(){
+            makeSpinner($("#searchResults"));
+            makeSpinner($("#suggestedResults"));
+        })
             .then((searchResponse) => {
                 queryURL = "https://api.rawg.io/api/games/" + searchResponse.id + "/suggested";
                 const twitchqueryURL = "https://api.rawg.io/api/games/" + searchResponse.id + "/twitch";
                 $.get(queryURL)
                     .then((simResponse) => {
+                        $(".d-flex").remove();
                         userMaker.createMainResult(searchResponse, userID);
                         userMaker.createSubResult(simResponse, userID);
                         makeNewSearchEvent();
@@ -50,14 +68,19 @@ $(document).ready( () => {
             });
     };
     const getByDeveloper = (searchTerm) =>{
+        $("#twitchStream").remove();
         let queryURL = "https://api.rawg.io/api/developers/" + searchTerm;
         $("#searchResults").empty();
         $("#suggestedResults").empty();
-        $.get(queryURL)
+        $.get(queryURL, ()=>{
+            makeSpinner($("#searchResults"));
+            makeSpinner($("#suggestedResults"));
+        })
             .then((searchResponse) => {
                 queryURL = "https://api.rawg.io/api/games?developers=" + searchTerm;
                 $.get(queryURL)
                     .then((gameSearch)=>{
+                        $(".spinner-border").remove();
                         userMaker.createDevResult(searchResponse, userID);
                         userMaker.createSubResult(gameSearch, userID);
                         makeNewSearchEvent();
@@ -70,7 +93,10 @@ $(document).ready( () => {
             id: gameID,
             userID: userID,
         };
-        $.post("/api/user/game", newGame).then($.post("/api/wishlist", newGame));
+        $.post("/api/user/game", newGame)
+            .then(()=>{
+                $.post("/api/wishlist", newGame);
+            });
     };
 
 
@@ -79,7 +105,9 @@ $(document).ready( () => {
             id: gameID,
             userID: userID,
         };
-        $.post("/api/user/game", newGame).then($.post("/api/library", newGame));
+        $.post("/api/user/game", newGame).then(()=>{
+            $.post("/api/library", newGame);
+        });
     };
 
 
@@ -149,9 +177,5 @@ $(document).ready( () => {
         }
         getByName(searchData.searchTerm);
         searchTerm.val("");
-    });
-    options.click((event)=>{
-        event.preventDefault();
-        window.location.assign("/options");
     });
 });

@@ -107,7 +107,8 @@ const userMaker = {
         const pGenre = $("<p>");
         pGenre.attr("class", "row genre");
         data.genres.forEach(function (genres) {
-            const genre = $("<a>");
+            const genre = $("<span>");
+            genre.attr("class", "badge badge-secondary");
             genre.text(genres.name);
             pGenre.append(genre);
         });

@@ -97,12 +97,26 @@ $(document).ready(() => {
         libraryCol.append(libraryBtn);
         addEventListeners(wishlistBtn, libraryBtn);
     }
-
+    function makeSpinner(element) {
+        const div = $("<div>");
+        div.attr("class", "d-flex justify-content-center");
+        element.append(div);
+        const spinnerDiv = $("<div>");
+        spinnerDiv.attr({ class: "spinner-border text-dark", role: "status" });
+        div.append(spinnerDiv);
+        const spinnerSpan = $("<span>");
+        spinnerSpan.attr("class", "sr-only");
+        spinnerSpan.text("Loading...");
+        spinnerDiv.append(spinnerSpan);
+    }
     for (let i = 0; i < wishlist.length; i++){
         const id = wishlist[i].attributes.id.value;
         const queryURL = "https://api.rawg.io/api/games/"+id;
         const liElement = $("div#"+id);
-        $.get(queryURL).then((res)=>{
+        $.get(queryURL, ()=>{
+            makeSpinner(liElement);
+        }).then((res)=>{
+            $(".d-flex").remove();
             buildElement(liElement, res);
 
         });
