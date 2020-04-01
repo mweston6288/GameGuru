@@ -14,12 +14,12 @@ module.exports = function(sequelize, DataTypes){
         timestamps: false
     });
     //Finding Watchlist by user Id
-    UserWatchlist.getWatchlist =  (userID, cb) =>  {
+    UserWatchlist.getWatchlist = (userID, cb) => {
         UserWatchlist.findAll({
             where: {
                 UserId: userID
             }
-            //Then creatting array to push Developer Id into 
+        //Then creatting array to push Developer Id into 
         }).then((res) => {
             const data = [];
             res.forEach((element) => {

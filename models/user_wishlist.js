@@ -1,6 +1,6 @@
 //Routes
 module.exports = function(sequelize, DataTypes){
-   // Defining the User_Wishlist Model
+    // Defining the User_Wishlist Model
     const UserWishList = sequelize.define("User_Wishlist",{
         id: {
             type: DataTypes.INTEGER,
