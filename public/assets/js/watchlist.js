@@ -6,6 +6,18 @@ $(document).ready(() => {
         $(".username").text(data.username);
         userID = data.id;
     });
+    function makeSpinner(element) {
+        const div = $("<div>");
+        div.attr("class", "d-flex justify-content-center");
+        element.append(div);
+        const spinnerDiv = $("<div>");
+        spinnerDiv.attr({ class: "spinner-border text-dark", role: "status" });
+        div.append(spinnerDiv);
+        const spinnerSpan = $("<span>");
+        spinnerSpan.attr("class", "sr-only");
+        spinnerSpan.text("Loading...");
+        spinnerDiv.append(spinnerSpan);
+    }
     function addGameEventListeners(wishlistBtn, libraryBtn) {
         if (wishlistBtn.attr("class")==="wishlist-add"){
             wishlistBtn.on("click", function(event){
@@ -35,7 +47,9 @@ $(document).ready(() => {
     }
     function loadGames(searchTerm) {
         const queryURL = "https://api.rawg.io/api/games?developers=" + searchTerm;
-        $.get(queryURL)
+        $.get(queryURL, ()=>{
+            makeSpinner($("#watchlist-games"));
+        })
             .then((response) => {
                 const parent = $("#watchlist-games");
                 parent.empty();
@@ -127,7 +141,6 @@ $(document).ready(() => {
                     addGameEventListeners(wishlistBtn, libraryBtn);
                 });
             });
-
     }
     function addEventListeners(watchlistBtn, gameBtn) {
         watchlistBtn.on("click", (event) => {
@@ -202,7 +215,10 @@ $(document).ready(() => {
         const id = watchlist[i].attributes.id.value;
         const queryURL = "https://api.rawg.io/api/developers/" + id;
         const liElement = $("div#" + id);
-        $.get(queryURL).then((res) => {
+        $.get(queryURL,()=>{
+            makeSpinner(liElement);
+        }).then((res) => {
+            $(".d-flex").remove();
             buildElement(liElement, res);
 
         });

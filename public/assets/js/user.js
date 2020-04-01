@@ -1,7 +1,6 @@
 $(document).ready( () => {
     const search = $("form#game-search");
     const searchTerm = $("input#user-input");
-    const options = $("button#options");
     let userID;
 
     $.get("/api/user_data").then( (data) => {
@@ -21,10 +20,10 @@ $(document).ready( () => {
         const player = new Twitch.Player("twitchStream", options);
         player.setVolume(0.5);
     };
-    const makeSpinner = ()=>{
+    const makeSpinner = (element)=>{
         const div = $("<div>");
         div.attr("class", "d-flex justify-content-center");
-        $("#searchResults").append(div);
+        element.append(div);
         const spinnerDiv = $("<div>");
         spinnerDiv.attr({ class: "spinner-border text-dark", role: "status" });
         div.append(spinnerDiv);
@@ -32,30 +31,24 @@ $(document).ready( () => {
         spinnerSpan.attr("class", "sr-only");
         spinnerSpan.text("Loading...");
         spinnerDiv.append(spinnerSpan);
-        const div2 = $("<div>");
-        div2.attr("class", "d-flex justify-content-center");
-        $("#suggestedResults").append(div2);
-        const spinnerDiv2 = $("<div>");
-        spinnerDiv2.attr({ class: "spinner-border text-dark", role: "status" });
-        div2.append(spinnerDiv2);
-        const spinnerSpan2 = $("<span>");
-        spinnerSpan2.attr("class", "sr-only");
-        spinnerSpan2.text("Loading...");
-        spinnerDiv2.append(spinnerSpan2);
     };
+
     const getByName = (searchTerm) => {
         let queryURL = "https://api.rawg.io/api/games/"+searchTerm.replace(/ /g, "-");
         $("#twitchStream").remove();
         $("#searchResults").empty();
         $("#suggestedResults").empty();
         $("#twitchStream").empty();
-        $.get(queryURL, makeSpinner)
+        $.get(queryURL, function(){
+            makeSpinner($("#searchResults"));
+            makeSpinner($("#suggestedResults"));
+        })
             .then((searchResponse) => {
                 queryURL = "https://api.rawg.io/api/games/" + searchResponse.id + "/suggested";
                 const twitchqueryURL = "https://api.rawg.io/api/games/" + searchResponse.id + "/twitch";
                 $.get(queryURL)
                     .then((simResponse) => {
-                        $(".spinner-border").remove();
+                        $(".d-flex").remove();
                         userMaker.createMainResult(searchResponse, userID);
                         userMaker.createSubResult(simResponse, userID);
                         makeNewSearchEvent();
@@ -79,7 +72,10 @@ $(document).ready( () => {
         let queryURL = "https://api.rawg.io/api/developers/" + searchTerm;
         $("#searchResults").empty();
         $("#suggestedResults").empty();
-        $.get(queryURL, makeSpinner)
+        $.get(queryURL, ()=>{
+            makeSpinner($("#searchResults"));
+            makeSpinner($("#suggestedResults"));
+        })
             .then((searchResponse) => {
                 queryURL = "https://api.rawg.io/api/games?developers=" + searchTerm;
                 $.get(queryURL)
@@ -97,7 +93,10 @@ $(document).ready( () => {
             id: gameID,
             userID: userID,
         };
-        $.post("/api/user/game", newGame).then($.post("/api/wishlist", newGame));
+        $.post("/api/user/game", newGame)
+            .then(()=>{
+                $.post("/api/wishlist", newGame);
+            });
     };
 
 
@@ -106,7 +105,9 @@ $(document).ready( () => {
             id: gameID,
             userID: userID,
         };
-        $.post("/api/user/game", newGame).then($.post("/api/library", newGame));
+        $.post("/api/user/game", newGame).then(()=>{
+            $.post("/api/library", newGame);
+        });
     };
 
 
@@ -176,9 +177,5 @@ $(document).ready( () => {
         }
         getByName(searchData.searchTerm);
         searchTerm.val("");
-    });
-    options.click((event)=>{
-        event.preventDefault();
-        window.location.assign("/options");
     });
 });
