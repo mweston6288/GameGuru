@@ -19,7 +19,7 @@ module.exports = function(sequelize, DataTypes){
             where: {
                 UserId: userID
             }
-            //Then Creating an array and pushing GameId in to it
+        //Then Creating an array and pushing GameId in to it
         }).then((res)=>{
             const data = [];
             res.forEach((element)=>{
