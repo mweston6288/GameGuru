@@ -1,6 +1,8 @@
+// Requiring our models for syncing
 const db = require("../models");
-
+//Route
 module.exports = (app) => {
+    //Find all Wishlists
     app.get("/api/wishlist/:id", (req, res) => {
         db.User_Wishlist.findAll({
             where: {
@@ -10,7 +12,7 @@ module.exports = (app) => {
             res.json(dbWishlist);
         });
     });
-
+    // Find One Wishlist
     app.get("/api/wishlist", (req, res) => {
         db.User_Wishlist.findOne({
             where:  {
@@ -21,7 +23,7 @@ module.exports = (app) => {
             res.json(dbWishlist);
         });
     });
-
+    // Post to DB
     app.post("/api/wishlist", (req, res) => {
         db.User_Wishlist.create({
             UserId: req.body.userID,
@@ -30,7 +32,7 @@ module.exports = (app) => {
             res.json(dbWishlist);
         }));
     });
-
+    // Delete From DB
     app.delete("/api/wishlist/:id", (req, res) => {
         db.User_Wishlist.destroy({
             where:{

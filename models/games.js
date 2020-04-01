@@ -1,5 +1,6 @@
+//Route
 module.exports = function(sequelize, DataTypes){
-    // pass in id, Name, description, Released, Metacritic, background_image, esrb_rating.name
+    //Defining Games Model
     const Games = sequelize.define("Games",{
         id: {
             type: DataTypes.INTEGER,
@@ -12,7 +13,7 @@ module.exports = function(sequelize, DataTypes){
         timestamps: false
     });
     Games.associate = function(models){
-        //Games.belongsToMany(models.Platforms, {through: "Games_Platform"});
+        //Asscoiating Games with users
         Games.belongsToMany(models.Users, {through: "User_Wishlist"});
         Games.belongsToMany(models.Users, {through: "User_Library"});
     };
