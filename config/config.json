@@ -1,12 +1,11 @@
 {
   "development": {
-    "username": "mht6qli5jw9cjypm",
-    "password": "garxb6y5bvuwgr8p",
-    "database": "b0uoft1kf12rhx10",
-    "host": "zy4wtsaw3sjejnud.cbetxkdyhwsb.us-east-1.rds.amazonaws.com",
+    "username": "root",
+    "password": null,
+    "database": "gameguruDB",
+    "host": "localhost",
     "dialect": "mysql",
-    "operatorsAliases": false,
-    "use_env_variable": "JAWSDB_URL"
+    "operatorsAliases": false
   },
   "test": {
     "username": "root",
