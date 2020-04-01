@@ -1,5 +1,6 @@
+//Routes
 module.exports = function(sequelize, DataTypes){
-    // pass in id, Name, description, Released, Metacritic, background_image, esrb_rating.name
+   // Defining the User_Wishlist Model
     const UserWishList = sequelize.define("User_Wishlist",{
         id: {
             type: DataTypes.INTEGER,
@@ -12,12 +13,13 @@ module.exports = function(sequelize, DataTypes){
     },{
         timestamps: false
     });
-
-    UserWishList.getWishlist = function(userID, cb){
+    //Finding User_Wishlist by user Id
+    UserWishList.getWishlist = (userID, cb) => {
         UserWishList.findAll({
             where: {
                 UserId: userID
             }
+            //Then Creating an array and pushing GameId in to it
         }).then((res)=>{
             const data = [];
             res.forEach((element)=>{

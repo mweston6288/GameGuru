@@ -1,5 +1,6 @@
 "use strict";
-
+// File Created by sequelize: init config
+//Dependencies
 const fs = require("fs");
 const path = require("path");
 const Sequelize = require("sequelize");

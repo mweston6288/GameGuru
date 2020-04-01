@@ -1,5 +1,5 @@
 # Project2
-
+![](GG_Demo.gif)
 Video game tracker:
 * Search games, including where they are
 * Make a wishlist of games

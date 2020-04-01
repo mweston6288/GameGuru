@@ -1,5 +1,6 @@
+//Route
 module.exports = function(sequelize, DataTypes){
-    // pass in id, Name, description, Released, Metacritic, background_image, esrb_rating.name
+    //Defining User_Watchlist Model
     const UserWatchlist = sequelize.define("User_Watchlist",{
         id: {
             type: DataTypes.INTEGER,
@@ -12,11 +13,13 @@ module.exports = function(sequelize, DataTypes){
     },{
         timestamps: false
     });
-    UserWatchlist.getWatchlist = function (userID, cb) {
+    //Finding Watchlist by user Id
+    UserWatchlist.getWatchlist =  (userID, cb) =>  {
         UserWatchlist.findAll({
             where: {
                 UserId: userID
             }
+            //Then creatting array to push Developer Id into 
         }).then((res) => {
             const data = [];
             res.forEach((element) => {

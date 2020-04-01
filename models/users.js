@@ -1,6 +1,8 @@
+//Dependecies
 const bcrypt = require("bcryptjs");
-
+//Routes
 module.exports = function(sequelize, DataTypes) {
+    //Defining User Model
     const User = sequelize.define("Users",{
         username: {
             type: DataTypes.STRING,
@@ -18,6 +20,7 @@ module.exports = function(sequelize, DataTypes) {
         timestamps: false
     });
     User.associate = function(models){
+        //Associating User with games and Developers
         User.belongsToMany(models.Games, {through: "User_Wishlist"});
         User.belongsToMany(models.Games, {through: "User_Library"});
         User.belongsToMany(models.Developer, {through: "User_Watchlist"});
