@@ -24,6 +24,9 @@ $(document).ready(() => {
                 $.post("/api/library", data, (res)=>{
                     console.log(res);
                 });
+                libraryBtn.text("Added to Library");
+                libraryBtn.attr("class", "library-rem");
+                libraryBtn.prop("disabled", true);
             });
         }
     }
