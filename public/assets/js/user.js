@@ -9,7 +9,9 @@ $(document).ready( () => {
         userID = data.id;
     });
     const createTwitchStream = (twitchID)=>{
-        console.log(twitchID);
+        const twitchDiv = $("<div>");
+        twitchDiv.attr("id", "twitchStream");
+        $("#searchResults").after(twitchDiv);
         const options = {
             width: 400,
             height: 300,
@@ -19,18 +21,41 @@ $(document).ready( () => {
         const player = new Twitch.Player("twitchStream", options);
         player.setVolume(0.5);
     };
-
+    const makeSpinner = ()=>{
+        const div = $("<div>");
+        div.attr("class", "d-flex justify-content-center");
+        $("#searchResults").append(div);
+        const spinnerDiv = $("<div>");
+        spinnerDiv.attr({ class: "spinner-border text-dark", role: "status" });
+        div.append(spinnerDiv);
+        const spinnerSpan = $("<span>");
+        spinnerSpan.attr("class", "sr-only");
+        spinnerSpan.text("Loading...");
+        spinnerDiv.append(spinnerSpan);
+        const div2 = $("<div>");
+        div2.attr("class", "d-flex justify-content-center");
+        $("#suggestedResults").append(div2);
+        const spinnerDiv2 = $("<div>");
+        spinnerDiv2.attr({ class: "spinner-border text-dark", role: "status" });
+        div2.append(spinnerDiv2);
+        const spinnerSpan2 = $("<span>");
+        spinnerSpan2.attr("class", "sr-only");
+        spinnerSpan2.text("Loading...");
+        spinnerDiv2.append(spinnerSpan2);
+    };
     const getByName = (searchTerm) => {
         let queryURL = "https://api.rawg.io/api/games/"+searchTerm.replace(/ /g, "-");
+        $("#twitchStream").remove();
         $("#searchResults").empty();
         $("#suggestedResults").empty();
         $("#twitchStream").empty();
-        $.get(queryURL)
+        $.get(queryURL, makeSpinner)
             .then((searchResponse) => {
                 queryURL = "https://api.rawg.io/api/games/" + searchResponse.id + "/suggested";
                 const twitchqueryURL = "https://api.rawg.io/api/games/" + searchResponse.id + "/twitch";
                 $.get(queryURL)
                     .then((simResponse) => {
+                        $(".spinner-border").remove();
                         userMaker.createMainResult(searchResponse, userID);
                         userMaker.createSubResult(simResponse, userID);
                         makeNewSearchEvent();
@@ -50,14 +75,16 @@ $(document).ready( () => {
             });
     };
     const getByDeveloper = (searchTerm) =>{
+        $("#twitchStream").remove();
         let queryURL = "https://api.rawg.io/api/developers/" + searchTerm;
         $("#searchResults").empty();
         $("#suggestedResults").empty();
-        $.get(queryURL)
+        $.get(queryURL, makeSpinner)
             .then((searchResponse) => {
                 queryURL = "https://api.rawg.io/api/games?developers=" + searchTerm;
                 $.get(queryURL)
                     .then((gameSearch)=>{
+                        $(".spinner-border").remove();
                         userMaker.createDevResult(searchResponse, userID);
                         userMaker.createSubResult(gameSearch, userID);
                         makeNewSearchEvent();
