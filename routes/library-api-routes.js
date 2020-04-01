@@ -1,6 +1,9 @@
-const db = require("../models");
 
+// Requiring our models
+const db = require("../models");
+//Routes
 module.exports = (app) => {
+    //Get Request for all Libraries
     app.get("/api/library/:id", (req, res) => {
         db.User_Library.findAll({
             where: {
@@ -10,7 +13,7 @@ module.exports = (app) => {
             res.json(dblibrary);
         });
     });
-
+    //Get request to find library by the UserId and GameId
     app.get("/api/library", (req, res) => {
         db.User_Library.findOne({
             where: {
@@ -21,7 +24,7 @@ module.exports = (app) => {
             res.json(dblibrary);
         });
     });
-
+    //Post request to add game to user library
     app.post("/api/library", (req, res) => {
         db.User_Library.create({
             UserId: req.body.userID,
@@ -30,7 +33,7 @@ module.exports = (app) => {
             res.json(dblibrary);
         }));
     });
-
+    //Delete Request to Remove game from Library
     app.delete("/api/library/:id", (req, res) => {
         db.User_Library.destroy({
             where:{

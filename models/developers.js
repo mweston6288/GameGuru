@@ -1,4 +1,6 @@
+//Route
 module.exports = function(sequelize, DataTypes){
+    //Defining Developer Model
     const Developer = sequelize.define("Developer",{
         id: {
             type: DataTypes.INTEGER,
@@ -11,6 +13,7 @@ module.exports = function(sequelize, DataTypes){
         timestamps: false
     });
     Developer.associate = (models) => {
+        // Associating Developer with users
         Developer.belongsToMany(models.Users, {through: "User_Watchlist"});
     };
     return Developer;
