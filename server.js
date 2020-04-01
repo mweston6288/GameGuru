@@ -5,7 +5,7 @@ const session = require("express-session");
 const passport = require("./config/passport");
 //Sets up Express App
 const app = express();
-const PORT = process.env.PORT || 8090;
+const PORT = process.env.PORT || 8080;
 // Requiring our models for syncing
 const db = require("./models");
 
@@ -18,7 +18,7 @@ app.use(express.static("public"));
 app.use(session({ secret: "keyboard cat", resave: true, saveUninitialized: true }));
 app.use(passport.initialize());
 app.use(passport.session());
-//Handles bar Config
+//Handlebars Config
 const exphbs = require("express-handlebars");
 app.engine("handlebars", exphbs({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
@@ -29,7 +29,6 @@ require("./routes/games-api-routes") (app);
 require("./routes/watchlist-api-route") (app);
 require("./routes/wishlist-api-routes") (app);
 require("./routes/library-api-routes") (app);
-
 require("./routes/developer-api-route") (app);
 //Controller Routes
 const routes = require("./controllers/wishlistControllers");

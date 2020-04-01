@@ -1,6 +1,8 @@
+// Requiring our models
 const db = require("../models");
-
+//Routes
 module.exports = (app) => {
+    //Get request to find a watch list by UserId and DeveloperId
     app.get("/api/watchlist", (req, res) => {
 
         db.User_Watchlist.findOne({
@@ -12,7 +14,7 @@ module.exports = (app) => {
             res.json(dbWatchlist);
         });
     });
-
+    //Get Request to find watchlist by Watchlist.id
     app.get("/api/watchlist/:id", (req, res) => {
         db.Watchlist.findOne({
             where: {
@@ -22,7 +24,7 @@ module.exports = (app) => {
             })
         });
     });
-
+    //Post Request to add Developer to watchlist
     app.post("/api/watchlist", (req, res) => {
         db.User_Watchlist.create({
             UserId: req.body.userID,
@@ -33,7 +35,7 @@ module.exports = (app) => {
     });
 
 
-
+    //Delete request to remove developer from watchlist
     app.delete("/api/watchlist", (req, res) => {
         db.User_Watchlist.destroy({
             where:{
