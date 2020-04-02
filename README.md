@@ -50,6 +50,14 @@ Click on Check games to see a list of games by the developer.
 # Logout
 Log out of your account. You can log back in using your username and password
 
+## Gemeral logic to how the app works
+* The app's databases only store ids of games which are then called on to get information
+* When a user saves a game to their wishlist or library, the ID of the game is saved and an association between the user's id and the game's id is made
+* When a user saves a developer, the developer id is saved and an association between the developer id and the user id is saved.
+* All data associated with the game ID or developer ID are made through calls to RAWG.io's api database.
+* When a user checks their library, wishlist, or watchlist, the app makes a GET call to its internal databases to get the game or developer IDs that have been linked to the user. Then empty div elements are created that have the game/developer IDs stored in them. When the page loads, it initially has no content.
+* Once the page has fully loaded, each div element's ID is extracted, and api calls are made to RAWG to get the ID's information. Then the information is displayed.
+
 ## Future Developments
 * Provide an option to search games by developer, genre, or platform
 * Provide addtional related links such as subreddits, wikis, etc.
