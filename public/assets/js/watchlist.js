@@ -26,7 +26,10 @@ $(document).ready(() => {
                     userID: userID,
                 };
                 console.log(newGame);
-                $.post("/api/user/game", newGame).then($.post("/api/wishlist", newGame));
+                $.post("/api/user/game", newGame)
+                    .then(()=>{
+                        $.post("/api/wishlist", newGame);
+                    });
                 $(this).attr("class", "wishlist-rem");
                 $(this).text("Added to Wishlist");
                 $(this).prop("disabled", true);
